@@ -12,7 +12,6 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    // https://umijs.org/zh-CN/plugins/plugin-layout
     locale: true,
     siderWidth: 208,
     ...defaultSettings,
@@ -44,7 +43,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  mfsu: {},
-  webpack5: {},
-  exportStatic: {},
+  // mfsu: {},
+  // webpack5: {},
+  // exportStatic: {},
 });

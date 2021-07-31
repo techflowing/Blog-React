@@ -5,7 +5,8 @@ import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import type { UserInfo } from '@/services/typings';
+import { getBaseUrl } from '@/utils/common-util';
 
 const loginPath = '/user/login';
 
@@ -19,16 +20,16 @@ export const initialStateConfig = {
  * */
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  currentUser?: UserInfo;
+  fetchUserInfo?: () => Promise<UserInfo | undefined>;
 }> {
   const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser();
-      return msg.data;
-    } catch (error) {
-      // history.push(loginPath);
-    }
+    // try {
+    //   const msg = await queryCurrentUser();
+    //   return msg.data;
+    // } catch (error) {
+    //   // history.push(loginPath);
+    // }
     return undefined;
   };
   // 如果是登录页面，不执行
@@ -85,6 +86,7 @@ export async function getInitialState(): Promise<{
  * @see https://beta-pro.ant.design/docs/request-cn
  */
 export const request: RequestConfig = {
+  prefix: getBaseUrl(),
   errorHandler: (error: any) => {
     const { response } = error;
 
