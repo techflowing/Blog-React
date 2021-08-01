@@ -4,9 +4,10 @@ const Settings: LayoutSettings & {
   pwa?: boolean;
   logo?: string;
 } = {
+  headerTheme: 'dark',
   navTheme: 'dark',
   // NEUQer蓝
-  primaryColor: '#4696EC',
+  primaryColor: '#424242',
   layout: 'mix',
   splitMenus: true,
   contentWidth: 'Fluid',

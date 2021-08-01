@@ -15,14 +15,39 @@
     ],
   },
   {
-    path: '/welcome',
-    icon: 'smile',
-    name: '欢迎页',
-    component: './Welcome',
+    path: '/navigation',
+    name: '导航站',
+    component: './Coming',
   },
   {
+    path: '/wiki',
+    name: '知识库',
+    component: './Coming',
+  },
+  {
+    path: '/xmind',
+    name: '思维导图',
+    component: './Coming',
+  },
+  {
+    path: '/thought',
+    name: '随想录',
+    component: './Coming',
+  },
+  {
+    path: '/guestbook',
+    name: '留言板',
+    component: './Coming',
+  },
+  {
+    path: '/about',
+    name: '关于',
+    component: './Coming',
+  },
+
+  {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/navigation',
   },
   {
     component: './404',

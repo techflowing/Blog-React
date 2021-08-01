@@ -7,13 +7,16 @@ import routes from './routes';
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   hash: true,
-  antd: {},
+  antd: {
+    dark: true, // 开启暗色主题
+    compact: true, // 开启紧凑主题
+  },
   dva: {
     hmr: true,
   },
   layout: {
     locale: true,
-    siderWidth: 208,
+    siderWidth: 272,
     ...defaultSettings,
   },
   dynamicImport: {

@@ -1,4 +1,5 @@
 @import '~antd/es/style/themes/default.less';
+@import './custom-define';
 
 html,
 body,
@@ -12,6 +13,7 @@ body,
 
 .ant-layout {
   min-height: 100vh;
+  background: @primary-background;
 }
 .ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
   left: unset;
@@ -54,4 +56,22 @@ ol {
   body .ant-design-pro > .ant-layout {
     min-height: 100vh;
   }
+}
+
+.ant-layout-header {
+  background: @nav-header-background;
+}
+
+.ant-pro-top-nav-header-main-left {
+  min-width: @header-main-left-width;
+}
+
+.ant-layout-footer {
+  background: transparent;
+}
+
+.ant-pro-global-footer {
+  margin: 16px 0 16px 0;
+  padding: 0 16px;
+  text-align: center;
 }
