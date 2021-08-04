@@ -28,6 +28,7 @@ export type UserInfo = {
     mobile: string;
     email: string;
     avatar: string;
+    isAdmin: boolean;
     roleDesc: string;
   };
   token: string;

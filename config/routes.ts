@@ -17,32 +17,32 @@
   {
     path: '/navigation',
     name: '导航站',
-    component: './Coming',
+    component: './Navigation',
   },
   {
     path: '/wiki',
     name: '知识库',
-    component: './Coming',
+    component: '@/components/layout/ContentFooterLayout',
   },
   {
     path: '/xmind',
     name: '思维导图',
-    component: './Coming',
+    component: '@/components/layout/ContentFooterLayout',
   },
   {
     path: '/thought',
     name: '随想录',
-    component: './Coming',
+    component: '@/components/layout/ContentFooterLayout',
   },
   {
     path: '/guestbook',
     name: '留言板',
-    component: './Coming',
+    component: '@/components/layout/ContentFooterLayout',
   },
   {
     path: '/about',
     name: '关于',
-    component: './Coming',
+    component: '@/components/layout/ContentFooterLayout',
   },
 
   {

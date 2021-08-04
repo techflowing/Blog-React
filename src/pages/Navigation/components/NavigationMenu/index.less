@@ -1,0 +1,20 @@
+@import './../../../../custom-define';
+
+.navigationMenu {
+  height: 100%;
+  padding-top: 8px;
+  overflow: auto;
+  background: @sider-bar-menu-background !important;
+
+  :global {
+    .ant-menu.ant-menu-root,
+    .ant-menu.ant-menu-sub {
+      background: @sider-bar-menu-background !important;
+    }
+
+    .ant-menu-item.ant-menu-item-only-child,
+    .ant-menu-submenu-title {
+      height: @sider-bar-menu-item-height !important;
+    }
+  }
+}
