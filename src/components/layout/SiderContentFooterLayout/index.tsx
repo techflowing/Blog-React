@@ -25,7 +25,15 @@ const ContentFooterLayout: React.FC<ContentFooterLayoutType> = (props) => {
       >
         {props.sider}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flex: '1 1 auto',
+          overflow: 'auto',
+          scrollBehavior: 'smooth',
+        }}
+      >
         <div style={{ flex: '1 1 auto' }}>{props.content}</div>
         <div style={{ flex: '0 0 auto' }}>
           <Footer />

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import type { NavigationNode } from '@/pages/Navigation/navigation-typings';
 import { Menu } from 'antd';
 import styles from './index.less';
-import { consoleLog } from '@/utils/common-util';
 
 const { SubMenu } = Menu;
 
@@ -63,7 +62,8 @@ const NavigationMenu: React.FC<NavigationMenuType> = (props) => {
       mode={'inline'}
       theme={'dark'}
       onClick={(item) => {
-        consoleLog(item.key);
+        const view = window.document.getElementById(item.key);
+        view?.scrollIntoView(true);
       }}
       openKeys={openKeys}
       expandIcon={<></>}

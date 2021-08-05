@@ -4,6 +4,9 @@ import type { NavigationNode } from '@/pages/Navigation/navigation-typings';
 import { readConfig } from '@/services/config-service';
 import { message } from 'antd';
 import NavigationMenu from '@/pages/Navigation/components/NavigationMenu';
+import NavigationSite from '@/pages/Navigation/components/NavigationSite';
+import { history } from 'umi';
+import { consoleLog } from '@/utils/common-util';
 
 /**
  * 导航站页面
@@ -22,11 +25,17 @@ const Navigation: React.FC = () => {
     });
   }, []);
 
-  const getNavigateCategory = () => {
-    return <NavigationMenu data={navigation} />;
-  };
+  const path = history.location.pathname;
 
-  return <SiderContentFooterLayout sider={getNavigateCategory()} content={<p>内容</p>} />;
+  consoleLog(path);
+  consoleLog(history.location.hash);
+
+  return (
+    <SiderContentFooterLayout
+      sider={<NavigationMenu data={navigation} />}
+      content={<NavigationSite data={navigation} />}
+    />
+  );
 };
 
 export default Navigation;
