@@ -6,6 +6,7 @@ import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import type { UserInfo } from '@/services/typings';
 import { getBaseUrl } from '@/utils/common-util';
+import Logo from '@/components/Logo';
 
 const loginPath = '/user/login';
 
@@ -103,6 +104,7 @@ export const request: RequestConfig = {
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     rightContentRender: () => <RightContent />,
+    logo: () => <Logo />,
     disableContentMargin: false,
     footerRender: undefined,
     menuHeaderRender: undefined,

@@ -1,0 +1,67 @@
+@out-size: 28px;
+@inner-size: 20px;
+@space: (@out-size - @inner-size)/2;
+
+.logoContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-left: 16px;
+}
+
+.outerCircle {
+  display: inline-block;
+  width: @out-size;
+  height: @out-size;
+  margin: 0 auto;
+  background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
+  border-radius: 50%;
+  cursor: pointer;
+  animation: rotate 1.5s linear infinite;
+
+  span {
+    position: absolute;
+    width: @out-size;
+    height: @out-size;
+    background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
+    border-radius: 50%;
+  }
+
+  span:nth-child(1) {
+    filter: blur(5px);
+  }
+
+  span:nth-child(2) {
+    filter: blur(10px);
+  }
+
+  span:nth-child(3) {
+    filter: blur(25px);
+  }
+
+  span:nth-child(4) {
+    filter: blur(150px);
+  }
+}
+
+.innerCircle {
+  position: absolute;
+  top: @space;
+  left: @space;
+  z-index: 9;
+  width: @inner-size;
+  height: @inner-size;
+  background: black;
+  border-radius: 50%;
+}
+
+@keyframes rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}

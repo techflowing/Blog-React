@@ -15,6 +15,7 @@ body,
   min-height: 100vh;
   background: @primary-background;
 }
+
 .ant-pro-sider.ant-layout-sider.ant-pro-sider-fixed {
   left: unset;
 }
@@ -38,11 +39,13 @@ ol {
   .ant-table {
     width: 100%;
     overflow-x: auto;
+
     &-thead > tr,
     &-tbody > tr {
       > th,
       > td {
         white-space: pre;
+
         > span {
           display: block;
         }
@@ -64,6 +67,10 @@ ol {
 
 .ant-pro-top-nav-header-main-left {
   min-width: @header-main-left-width;
+}
+
+.ant-pro-top-nav-header-main {
+  padding-left: 0;
 }
 
 .ant-layout-footer {

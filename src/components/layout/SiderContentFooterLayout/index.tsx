@@ -20,6 +20,7 @@ const ContentFooterLayout: React.FC<ContentFooterLayoutType> = (props) => {
       <div
         style={{
           width: 272,
+          minWidth: 272,
           overflow: 'auto',
         }}
       >
