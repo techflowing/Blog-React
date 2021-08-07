@@ -34,6 +34,14 @@ export async function getInitialState(): Promise<{
 }
 
 /**
+ * 获取登录后缓存在本地的Token
+ */
+const getAuthorizeToken = (): string => {
+  const user = getUserFromLocalStorage();
+  return user !== undefined && user !== null ? user.token : '';
+};
+
+/**
  * 异常处理程序
  200: '服务器成功返回请求的数据。',
  201: '新建或修改数据成功。',
@@ -73,16 +81,26 @@ export async function getInitialState(): Promise<{
  */
 export const request: RequestConfig = {
   prefix: getBaseUrl(),
+  headers: {
+    token: getAuthorizeToken(),
+  },
   errorHandler: (error: any) => {
-    const { response } = error;
+    const { response, data } = error;
 
-    if (!response) {
+    if (!response && !data) {
       notification.error({
         description: '您的网络发生异常，无法连接服务器',
         message: '网络异常',
       });
     }
-    throw error;
+    if (data) {
+      notification.error({
+        description: `请求异常（${data.code}）`,
+        message: data.message,
+      });
+    }
+    // 返回原始数据，再交由业务层处理
+    return data;
   },
 
   errorConfig: {
