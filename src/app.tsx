@@ -7,6 +7,7 @@ import RightContent from '@/components/RightContent';
 import type { UserInfo } from '@/services/typings';
 import { getBaseUrl, getUserFromLocalStorage } from '@/utils/common-util';
 import Logo from '@/components/Logo';
+import defaultSettings from '../config/defaultSettings';
 
 const loginPath = '/user/login';
 
@@ -29,7 +30,7 @@ export async function getInitialState(): Promise<{
   }
   return {
     currentUser,
-    settings: {},
+    settings: { ...defaultSettings },
   };
 }
 
@@ -100,6 +101,7 @@ export const request: RequestConfig = {
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
+    ...initialState?.settings,
     rightContentRender: () => <RightContent />,
     logo: () => <Logo />,
     disableContentMargin: false,
@@ -110,6 +112,5 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     links: [],
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
-    ...initialState?.settings,
   };
 };

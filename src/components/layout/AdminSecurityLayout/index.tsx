@@ -5,6 +5,7 @@ import ProLayout from '@ant-design/pro-layout';
 import Footer from '@/components/Footer';
 import { useModel } from '@@/plugin-model/useModel';
 import Logo from '@/components/Logo';
+import styles from './index.less';
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
@@ -33,8 +34,10 @@ const AdminSecurityLayout: React.FC<any> = (props) => {
   return (
     <>
       <ProLayout
+        className={styles.adminLayout}
         {...props}
         {...initialState?.settings}
+        siderWidth={272}
         title={'管理后台'}
         logo={<Logo />}
         menuDataRender={menuDataRender}
@@ -53,7 +56,8 @@ const AdminSecurityLayout: React.FC<any> = (props) => {
         }}
         footerRender={() => <Footer />}
         collapsedButtonRender={false}
-        layout={'side'}
+        layout={'mix'}
+        splitMenus={false}
       >
         {children}
       </ProLayout>

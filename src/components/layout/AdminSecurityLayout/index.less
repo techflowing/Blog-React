@@ -1,0 +1,31 @@
+@import './../../../custom-define';
+
+.adminLayout {
+  :global {
+    .ant-layout-header,
+    .ant-pro-global-header.ant-pro-global-header-layout-mix {
+      background: @nav-header-background;
+    }
+
+    .ant-pro-global-header {
+      padding-left: 0;
+    }
+
+    .ant-pro-top-nav-header-main-left {
+      min-width: @header-main-left-width;
+    }
+
+    .ant-pro-top-nav-header-main {
+      padding-left: 0;
+    }
+
+    .ant-layout-footer {
+      background: transparent;
+    }
+
+    .ant-menu-item.ant-menu-item-only-child,
+    .ant-menu-submenu-title {
+      height: @sider-bar-menu-item-height !important;
+    }
+  }
+}
