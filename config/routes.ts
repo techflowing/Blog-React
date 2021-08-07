@@ -44,7 +44,24 @@
     name: '关于',
     component: '@/components/layout/ContentFooterLayout',
   },
-
+  {
+    path: '/admin',
+    name: '管理后台',
+    layout: false,
+    hideInMenu: true,
+    component: '@/components/layout/AdminSecurityLayout',
+    routes: [
+      {
+        path: '/admin',
+        redirect: '/admin/navigation',
+      },
+      {
+        path: '/admin/navigation',
+        name: '导航站数据管理',
+        component: './admin/Navigation',
+      },
+    ],
+  },
   {
     path: '/',
     redirect: '/navigation',

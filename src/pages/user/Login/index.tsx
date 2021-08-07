@@ -8,6 +8,7 @@ import styles from './index.less';
 import type { LoginParams } from '@/pages/user/Login/login-typings';
 import { login } from '@/pages/user/Login/service';
 import { md5String } from '@/utils/md5-util';
+import { saveUserInfoToLocalStorage } from '@/utils/common-util';
 
 const Login: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
@@ -22,8 +23,12 @@ const Login: React.FC = () => {
         username: params.username,
         password: md5String(params.password),
       });
-      if (response.code === 0) {
-        await setInitialState({ ...initialState, currentUser: response.data });
+      if (response.code === 0 && response.data !== undefined) {
+        saveUserInfoToLocalStorage(response.data);
+        if (initialState !== undefined) {
+          initialState.currentUser = response.data;
+          await setInitialState({ ...initialState, currentUser: response.data });
+        }
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
         if (!history) {

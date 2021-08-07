@@ -5,7 +5,7 @@ import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import RightContent from '@/components/RightContent';
 import type { UserInfo } from '@/services/typings';
-import { getBaseUrl } from '@/utils/common-util';
+import { getBaseUrl, getUserFromLocalStorage } from '@/utils/common-util';
 import Logo from '@/components/Logo';
 
 const loginPath = '/user/login';
@@ -21,28 +21,14 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: UserInfo;
-  fetchUserInfo?: () => Promise<UserInfo | undefined>;
 }> {
-  const fetchUserInfo = async () => {
-    // try {
-    //   const msg = await queryCurrentUser();
-    //   return msg.data;
-    // } catch (error) {
-    //   // history.push(loginPath);
-    // }
-    return undefined;
-  };
   // 如果是登录页面，不执行
+  let currentUser;
   if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: {},
-    };
+    currentUser = getUserFromLocalStorage();
   }
   return {
-    fetchUserInfo,
+    currentUser,
     settings: {},
   };
 }
@@ -97,6 +83,17 @@ export const request: RequestConfig = {
       });
     }
     throw error;
+  },
+
+  errorConfig: {
+    adaptor: (resData) => {
+      return {
+        success: resData.code === 0,
+        data: resData.data,
+        errorCode: resData.code,
+        errorMessage: resData.message,
+      };
+    },
   },
 };
 

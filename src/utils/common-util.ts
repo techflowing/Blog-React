@@ -1,4 +1,29 @@
 import customConfig from './../../config/customConfig';
+import type { UserInfo } from '@/services/typings';
+
+const storage_key_user = 'site_user_info';
+
+/**
+ * 存储用户信息到本地
+ */
+export const saveUserInfoToLocalStorage = (user: UserInfo) => {
+  window.localStorage.setItem(storage_key_user, JSON.stringify(user));
+};
+
+/**
+ * 从本地读取用户信息
+ */
+export const getUserFromLocalStorage = (): UserInfo => {
+  const user = window.localStorage.getItem(storage_key_user);
+  return user !== null ? JSON.parse(user) : undefined;
+};
+
+/**
+ * 清除用户信息
+ */
+export const clearUserInfo = () => {
+  window.localStorage.removeItem(storage_key_user);
+};
 
 /**
  * 是否是生产环境
