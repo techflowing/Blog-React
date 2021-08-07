@@ -3,7 +3,6 @@ import { PageLoading } from '@ant-design/pro-layout';
 import { notification } from 'antd';
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
-import RightContent from '@/components/RightContent';
 import type { UserInfo } from '@/services/typings';
 import { getBaseUrl, getUserFromLocalStorage } from '@/utils/common-util';
 import Logo from '@/components/Logo';
@@ -102,7 +101,7 @@ export const request: RequestConfig = {
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     ...initialState?.settings,
-    rightContentRender: () => <RightContent />,
+    rightContentRender: false,
     logo: () => <Logo />,
     disableContentMargin: false,
     footerRender: undefined,

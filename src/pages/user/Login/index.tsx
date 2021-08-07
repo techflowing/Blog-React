@@ -38,7 +38,7 @@ const Login: React.FC = () => {
         const { redirect } = query as {
           redirect: string;
         };
-        history.push(redirect || '/');
+        history.push(redirect || '/admin');
       } else {
         message.error(`登录失败：${response.message}`);
       }

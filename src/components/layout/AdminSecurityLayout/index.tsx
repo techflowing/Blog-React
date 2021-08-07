@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { useModel } from '@@/plugin-model/useModel';
 import Logo from '@/components/Logo';
 import styles from './index.less';
+import RightContent from '@/components/RightContent';
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
@@ -56,6 +57,7 @@ const AdminSecurityLayout: React.FC<any> = (props) => {
         }}
         footerRender={() => <Footer />}
         collapsedButtonRender={false}
+        rightContentRender={() => <RightContent />}
         layout={'mix'}
         splitMenus={false}
       >
