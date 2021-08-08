@@ -22,7 +22,7 @@
   {
     path: '/wiki',
     name: '知识库',
-    component: '@/components/layout/ContentFooterLayout',
+    component: './wiki/WikiProject',
   },
   {
     path: '/xmind',
