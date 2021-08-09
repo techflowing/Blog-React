@@ -4,6 +4,8 @@ import ProCard from '@ant-design/pro-card';
 import type { WikiProject } from '@/pages/wiki/WikiProject/wiki-typings';
 import { getWikiProjectList } from '@/pages/wiki/WikiProject/service';
 import styles from './index.less';
+import { history } from 'umi';
+import ContentFooterLayout from '@/components/layout/ContentFooterLayout';
 
 const { Title, Text } = Typography;
 
@@ -13,7 +15,7 @@ const WikiProjectList: React.FC = () => {
 
   useEffect(() => {
     getWikiProjectList().then((resp) => {
-      if (resp.code === 0) {
+      if (resp?.code === 0) {
         setWikiProjectList(resp.data);
       }
     });
@@ -21,7 +23,14 @@ const WikiProjectList: React.FC = () => {
 
   const buildWikiProjectItem = (project: WikiProject) => {
     return (
-      <ProCard key={project.name} colSpan={'20%'} hoverable>
+      <ProCard
+        key={project.name}
+        colSpan={'20%'}
+        hoverable
+        onClick={() => {
+          history.push(`/wiki/detail/${project.name}`);
+        }}
+      >
         <div>
           <Image src={project.thumb} preview={false} width={'100%'} />
           <div className={styles.wikiProjectInfoContainer}>
@@ -39,19 +48,21 @@ const WikiProjectList: React.FC = () => {
   };
 
   return (
-    <div className={styles.wikiProjectListContainer}>
-      <ProCard
-        className={styles.wikiProjectList}
-        key={'Wiki项目列表'}
-        gutter={[
-          { xs: 8, sm: 16, md: 24, lg: 32 },
-          { xs: 16, sm: 16, md: 16, lg: 16 },
-        ]}
-        wrap={true}
-      >
-        {wikiProjectList?.map((item) => buildWikiProjectItem(item))}
-      </ProCard>
-    </div>
+    <ContentFooterLayout>
+      <div className={styles.wikiProjectListContainer}>
+        <ProCard
+          className={styles.wikiProjectList}
+          key={'Wiki项目列表'}
+          gutter={[
+            { xs: 8, sm: 8, md: 16, lg: 24 },
+            { xs: 16, sm: 16, md: 16, lg: 16 },
+          ]}
+          wrap={true}
+        >
+          {wikiProjectList?.map((item) => buildWikiProjectItem(item))}
+        </ProCard>
+      </div>
+    </ContentFooterLayout>
   );
 };
 export default WikiProjectList;

@@ -1,12 +1,12 @@
 import React from 'react';
 import Footer from '@/components/Footer';
 
-export type ContentFooterLayoutType = {
+export type SiderContentFooterLayoutType = {
   sider: React.ReactNode;
   content: React.ReactNode;
 };
 
-const ContentFooterLayout: React.FC<ContentFooterLayoutType> = (props) => {
+const SiderContentFooterLayout: React.FC<SiderContentFooterLayoutType> = (props) => {
   return (
     <div
       style={{
@@ -44,4 +44,4 @@ const ContentFooterLayout: React.FC<ContentFooterLayoutType> = (props) => {
   );
 };
 
-export default ContentFooterLayout;
+export default SiderContentFooterLayout;

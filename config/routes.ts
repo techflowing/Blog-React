@@ -22,7 +22,21 @@
   {
     path: '/wiki',
     name: '知识库',
-    component: './wiki/WikiProject',
+    routes: [
+      {
+        path: '/wiki',
+        redirect: '/wiki/list',
+      },
+      {
+        path: '/wiki/list',
+        component: './wiki/WikiProject',
+      },
+      {
+        path: '/wiki/detail',
+        exact: false,
+        component: './wiki/WikiDocument',
+      },
+    ],
   },
   {
     path: '/xmind',

@@ -10,6 +10,7 @@ const ContentFooterLayout: React.FC = (props) => {
         position: 'absolute',
         height: '100%',
         width: '100%',
+        overflow: 'auto',
       }}
     >
       <div style={{ flex: '1 1 auto' }}>{props.children}</div>
