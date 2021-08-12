@@ -33,7 +33,6 @@
       },
       {
         path: '/wiki/detail',
-        exact: false,
         component: './wiki/WikiDocument',
       },
     ],

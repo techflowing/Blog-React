@@ -28,7 +28,7 @@ const WikiProjectList: React.FC = () => {
         colSpan={'20%'}
         hoverable
         onClick={() => {
-          history.push(`/wiki/detail/${project.name}`);
+          history.push(`/wiki/detail?projectName=${project.name}`);
         }}
       >
         <div>
