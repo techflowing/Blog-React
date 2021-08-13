@@ -14,3 +14,13 @@ export async function getWikiDocumentTree(projectName: string, options?: { [key:
     },
   );
 }
+
+/**
+ * 获取Wiki项目内容
+ */
+export async function getWikiDocumentContent(key: string, options?: { [key: string]: any }) {
+  return request<API.Response<string>>(`/blog/v1/wiki/document/content?key=${key}`, {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
