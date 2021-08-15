@@ -50,7 +50,7 @@
   {
     path: '/guestbook',
     name: '留言板',
-    component: '@/components/layout/ContentFooterLayout',
+    component: './GuestBook',
   },
   {
     path: '/about',
