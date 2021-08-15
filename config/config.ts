@@ -49,5 +49,14 @@ export default defineConfig({
   },
   // mfsu: {},
   // webpack5: {},
-  // exportStatic: {},
+  exportStatic: {},
+  chainWebpack: (memo, { env, webpack, createCSSRule }) => {
+    memo.plugin('provide-plugin').use(webpack.ProvidePlugin, [
+      {
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+      },
+    ]);
+  },
 });

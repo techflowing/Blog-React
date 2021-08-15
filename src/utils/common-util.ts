@@ -60,3 +60,35 @@ export const consoleLog = (msg: any) => {
   }
   console.log(JSON.stringify(msg));
 };
+
+/**
+ * 动态插入 Script 标签
+ * @param src
+ * @param async
+ */
+export const insertScript = (src: string, async: boolean = false) => {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.async = async;
+    script.src = src;
+    // @ts-ignore
+    if (script.readyState) {
+      // IE
+      // @ts-ignore
+      script.onreadystatechange = () => {
+        // @ts-ignore
+        if (script.readyState === 'loaded' || script.readyState === 'complete') {
+          // @ts-ignore
+          script.onreadystatechange = null;
+          resolve(true);
+        }
+      };
+    } else {
+      // 其他浏览器
+      script.onload = () => {
+        resolve(true);
+      };
+    }
+    document.body.appendChild(script);
+  });
+};

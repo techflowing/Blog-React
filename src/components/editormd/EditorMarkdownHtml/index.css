@@ -1,0 +1,88 @@
+/* 自定义markdown主题 */
+.editormd-preview-theme-dark {
+  color: #979898;
+  background: #212121;
+}
+
+.editormd-preview-theme-dark h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #858686;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body hr {
+  border-bottom: 1px solid #333;
+}
+
+.markdown-body a {
+  color: #136ade;
+}
+
+.markdown-body p {
+  color: #979898;
+}
+
+.editormd-preview-container hr,
+.editormd-html-preview hr {
+  border-top: 1px solid #333;
+}
+
+.editormd-preview-container pre.prettyprint,
+.editormd-html-preview pre.prettyprint {
+  border: 1px solid #333;
+}
+
+.markdown-toc-list li {
+  color: #3d7db4;
+}
+
+.editormd-preview-container code,
+.editormd-html-preview code {
+  color: #c5c5c5;
+  background: #333;
+  border: 0 solid #ddd;
+}
+
+.editormd-container-mask {
+  background-color: #2c2e2e;
+}
+
+.editormd .CodeMirror-linenumbers {
+  width: 30px;
+}
+
+.editormd-preview-container table thead tr,
+.editormd-html-preview table thead tr {
+  background-color: #272727;
+}
+
+.markdown-body table tr {
+  background-color: #323232;
+  border-top: 1px solid #323232;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  border: 1px solid #353535;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #292929;
+}
+
+.markdown-toc-list a {
+  color: #136ade;
+}
+
+.editormd-toc::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.editormd-toc {
+  border-left: 1px solid #333;
+}

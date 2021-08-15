@@ -3,14 +3,15 @@ import { history } from 'umi';
 import { getWikiDocumentContent, getWikiDocumentTree } from '@/pages/wiki/WikiDocument/service';
 import type { WikiDocument } from '@/pages/wiki/WikiDocument/wiki-doc-typings';
 import { Tree } from 'antd';
-import SiderContentFooterLayout from '@/components/layout/SiderContentFooterLayout';
+import BothSiderContentFooterLayout from '@/components/layout/BothSiderContentFooterLayout';
 import styles from './index.less';
-import { consoleLog } from '@/utils/common-util';
+import EditorMarkdownHtml from '@/components/editormd/EditorMarkdownHtml';
 
 const { DirectoryTree } = Tree;
 
 const WikiDocumentDetail: React.FC = () => {
   const [treeData, setTreeData] = useState<WikiDocument[]>();
+  const [content, setContent] = useState<string>('');
 
   useEffect(() => {
     const projectName = history.location.query?.projectName;
@@ -25,8 +26,8 @@ const WikiDocumentDetail: React.FC = () => {
   }, []);
 
   return (
-    <SiderContentFooterLayout
-      sider={
+    <BothSiderContentFooterLayout
+      leftSider={
         <DirectoryTree
           className={styles.wikiCatalogue}
           multiple={false}
@@ -36,14 +37,25 @@ const WikiDocumentDetail: React.FC = () => {
             if (info.node.isLeaf && keys?.length === 1) {
               getWikiDocumentContent(keys[0] as string).then((resp) => {
                 if (resp.code === 0) {
-                  consoleLog(resp.data);
+                  // consoleLog(resp.data);
+                  setContent(resp.data);
                 }
               });
             }
           }}
         />
       }
-      content={<p>测试</p>}
+      content={
+        <div className={styles.wikiDocumentHtmlContent}>
+          <EditorMarkdownHtml content={content} tocm={true} tocContainer={'#toc-container'} />
+        </div>
+      }
+      rightSider={
+        <div className={styles.wikiDocumentToc}>
+          <p className={styles.wikiDocumentTocTitle}>目录</p>
+          <div id="toc-container"></div>
+        </div>
+      }
     />
   );
 };
