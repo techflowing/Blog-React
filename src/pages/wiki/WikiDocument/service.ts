@@ -7,7 +7,7 @@ import type { WikiDocument } from '@/pages/wiki/WikiDocument/wiki-doc-typings';
  */
 export async function getWikiDocumentTree(projectName: string, options?: { [key: string]: any }) {
   return request<API.Response<WikiDocument[]>>(
-    `/blog/v1/wiki/document/tree?projectName=${projectName}`,
+    `/blog/v1/wiki/document/tree?projectKey=${projectName}`,
     {
       method: 'GET',
       ...(options || {}),

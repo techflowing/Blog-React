@@ -3,4 +3,5 @@ export type WikiProject = {
   description: string;
   docCount: number;
   thumb: string;
+  hashKey: string;
 };
