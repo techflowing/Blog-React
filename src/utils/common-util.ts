@@ -26,6 +26,14 @@ export const clearUserInfo = () => {
 };
 
 /**
+ * 获取登录后缓存在本地的Token
+ */
+export const getAuthorizeToken = (): string => {
+  const user = getUserFromLocalStorage();
+  return user !== undefined && user !== null ? user.token : '';
+};
+
+/**
  * 是否是生产环境
  */
 export const isProdEnv = (): boolean => {

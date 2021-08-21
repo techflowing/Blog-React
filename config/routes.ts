@@ -73,6 +73,11 @@
         name: '导航站数据管理',
         component: './admin/Navigation',
       },
+      {
+        path: '/admin/wiki',
+        name: 'Wiki 数据管理',
+        component: './admin/Wiki',
+      },
     ],
   },
   {

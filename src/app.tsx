@@ -4,7 +4,7 @@ import { notification } from 'antd';
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import { history } from 'umi';
 import type { UserInfo } from '@/services/typings';
-import { getBaseUrl, getUserFromLocalStorage } from '@/utils/common-util';
+import { getAuthorizeToken, getBaseUrl, getUserFromLocalStorage } from '@/utils/common-util';
 import Logo from '@/components/Logo';
 import defaultSettings from '../config/defaultSettings';
 
@@ -32,14 +32,6 @@ export async function getInitialState(): Promise<{
     settings: { ...defaultSettings },
   };
 }
-
-/**
- * 获取登录后缓存在本地的Token
- */
-const getAuthorizeToken = (): string => {
-  const user = getUserFromLocalStorage();
-  return user !== undefined && user !== null ? user.token : '';
-};
 
 /**
  * 异常处理程序
