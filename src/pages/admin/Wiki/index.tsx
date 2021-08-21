@@ -1,17 +1,48 @@
-import React, { useState } from 'react';
-import { Button, Divider, Image, Typography } from 'antd';
+import React, { useRef, useState } from 'react';
+import { Button, Divider, Image, message, Modal, Typography } from 'antd';
 import ProTable from '@ant-design/pro-table';
-import type { ProColumns } from '@ant-design/pro-table';
+import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import type { WikiProject } from '@/pages/wiki/WikiProject/wiki-typings';
 import { getWikiProjectList } from '@/pages/wiki/WikiProject/service';
-import { FormOutlined, DeleteOutlined, FileWordOutlined } from '@ant-design/icons';
+import {
+  FormOutlined,
+  DeleteOutlined,
+  FileWordOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { consoleLog } from '@/utils/common-util';
 import AddNewModalForm from '@/pages/admin/Wiki/components/AddNewModalForm';
+import { deleteWikiProject } from '@/pages/admin/Wiki/service';
 
 const { Text, Title } = Typography;
 
 const WikiAdmin: React.FC = () => {
   const [showCreateModalForm, setShowCreateModalForm] = useState(false);
+  const actionRef = useRef<ActionType>();
+
+  /**
+   * 点击删除按钮
+   * @param project 项目
+   */
+  const onDeleteWikiProjectClick = (project: WikiProject) => {
+    Modal.confirm({
+      title: '删除确认',
+      icon: <ExclamationCircleOutlined />,
+      content: `确定要删除 ${project.name}" 吗？删除后不可恢复`,
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        deleteWikiProject(project).then((resp) => {
+          if (resp.code === 0) {
+            message.success('删除成功');
+            actionRef.current?.reload();
+          } else {
+            message.error(`删除失败：${resp.message}`);
+          }
+        });
+      },
+    });
+  };
 
   const columns: ProColumns<WikiProject>[] = [
     {
@@ -50,7 +81,7 @@ const WikiAdmin: React.FC = () => {
       title: '操作',
       key: 'option',
       valueType: 'option',
-      render: () => [
+      render: (_, entry) => [
         <div style={{ display: 'flex', gap: 8 }} key={'option'}>
           <FormOutlined
             onClick={() => {
@@ -58,7 +89,11 @@ const WikiAdmin: React.FC = () => {
             }}
           />
           <FileWordOutlined />
-          <DeleteOutlined />
+          <DeleteOutlined
+            onClick={() => {
+              onDeleteWikiProjectClick(entry);
+            }}
+          />
         </div>,
       ],
     },
@@ -69,6 +104,7 @@ const WikiAdmin: React.FC = () => {
       <Title level={5}>Wiki 数据管理</Title>
       <Divider dashed />
       <ProTable<WikiProject>
+        actionRef={actionRef}
         columns={columns}
         request={() => {
           return getWikiProjectList().then((resp) => {
@@ -99,6 +135,9 @@ const WikiAdmin: React.FC = () => {
       <AddNewModalForm
         visible={showCreateModalForm}
         onVisibleChange={(visible) => setShowCreateModalForm(visible)}
+        onAddSuccess={() => {
+          actionRef.current?.reload();
+        }}
       />
     </div>
   );

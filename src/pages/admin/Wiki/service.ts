@@ -11,3 +11,14 @@ export async function createWikiProject(info: any, options?: { [key: string]: an
     ...(options || {}),
   });
 }
+
+/**
+ * 删除 Wiki 项目
+ */
+export async function deleteWikiProject(info: any, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/wiki/project/delete`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}

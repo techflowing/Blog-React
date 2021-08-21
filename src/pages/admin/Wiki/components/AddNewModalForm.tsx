@@ -7,6 +7,7 @@ import { createWikiProject } from '@/pages/admin/Wiki/service';
 export type AddNewModalFormType = {
   visible: boolean;
   onVisibleChange: (visible: boolean) => void;
+  onAddSuccess: () => void;
 };
 
 /**
@@ -22,6 +23,7 @@ const AddNewModalForm: React.FC<AddNewModalFormType> = (props) => {
           if (resp.code === 0) {
             message.success('创建成功');
             props.onVisibleChange(false);
+            props.onAddSuccess();
           } else {
             message.error(`创建失败：${resp.message}`);
           }
