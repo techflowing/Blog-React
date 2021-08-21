@@ -15,6 +15,10 @@ const ImgCropUploadFormItem: React.FC<ImgCropUploadFormItemType> = (props) => {
 
   useEffect(() => {
     setThumbUrl(props.value);
+    if (props.value !== undefined) {
+      const file: UploadFile = { uid: '-1', url: props.value, status: 'done', name: '初始封面图' };
+      setThumbFileList([file]);
+    }
   }, []);
 
   const updateThumbUrl = (url: string | undefined) => {

@@ -10,15 +10,17 @@ import {
   FileWordOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
-import { consoleLog } from '@/utils/common-util';
 import AddNewModalForm from '@/pages/admin/Wiki/components/AddNewModalForm';
 import { deleteWikiProject } from '@/pages/admin/Wiki/service';
+import EditorModalForm from '@/pages/admin/Wiki/components/EditorModalForm';
 
 const { Text, Title } = Typography;
 
 const WikiAdmin: React.FC = () => {
   const [showCreateModalForm, setShowCreateModalForm] = useState(false);
+  const [showEditorModalForm, setShowEditorModalForm] = useState(false);
   const actionRef = useRef<ActionType>();
+  const editorProject = useRef<WikiProject>();
 
   /**
    * 点击删除按钮
@@ -85,7 +87,8 @@ const WikiAdmin: React.FC = () => {
         <div style={{ display: 'flex', gap: 8 }} key={'option'}>
           <FormOutlined
             onClick={() => {
-              consoleLog('点击编辑');
+              editorProject.current = entry;
+              setShowEditorModalForm(true);
             }}
           />
           <FileWordOutlined />
@@ -136,6 +139,16 @@ const WikiAdmin: React.FC = () => {
         visible={showCreateModalForm}
         onVisibleChange={(visible) => setShowCreateModalForm(visible)}
         onAddSuccess={() => {
+          actionRef.current?.reload();
+        }}
+      />
+      <EditorModalForm
+        project={editorProject.current as WikiProject}
+        visible={showEditorModalForm}
+        onVisibleChange={(visible) => {
+          setShowEditorModalForm(visible);
+        }}
+        onEditSuccess={() => {
           actionRef.current?.reload();
         }}
       />

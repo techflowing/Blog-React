@@ -22,3 +22,14 @@ export async function deleteWikiProject(info: any, options?: { [key: string]: an
     ...(options || {}),
   });
 }
+
+/**
+ * 修改 Wiki 项目
+ */
+export async function updateWikiProject(info: any, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/wiki/project/update`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}
