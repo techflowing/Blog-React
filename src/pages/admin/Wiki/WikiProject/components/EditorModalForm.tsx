@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-form';
 import { Form, message } from 'antd';
 import ImgCropUploadFormItem from '@/pages/admin/components/ImgCropUploadFormItem';
-import { updateWikiProject } from '@/pages/admin/Wiki/service';
+import { updateWikiProject } from '@/pages/admin/wiki/service';
 
 export type EditorModalFormType = {
   project: WikiProject;

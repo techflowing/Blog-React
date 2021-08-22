@@ -2,7 +2,7 @@ import React from 'react';
 import { message, Form } from 'antd';
 import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import ImgCropUploadFormItem from '@/pages/admin/components/ImgCropUploadFormItem';
-import { createWikiProject } from '@/pages/admin/Wiki/service';
+import { createWikiProject } from '@/pages/admin/wiki/service';
 
 export type AddNewModalFormType = {
   visible: boolean;

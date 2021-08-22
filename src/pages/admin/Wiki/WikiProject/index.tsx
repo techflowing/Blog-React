@@ -10,13 +10,14 @@ import {
   FileWordOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
-import AddNewModalForm from '@/pages/admin/Wiki/components/AddNewModalForm';
-import { deleteWikiProject } from '@/pages/admin/Wiki/service';
-import EditorModalForm from '@/pages/admin/Wiki/components/EditorModalForm';
+import AddNewModalForm from '@/pages/admin/wiki/WikiProject/components/AddNewModalForm';
+import { deleteWikiProject } from '@/pages/admin/wiki/service';
+import EditorModalForm from '@/pages/admin/wiki/WikiProject/components/EditorModalForm';
+import { history } from '@@/core/history';
 
 const { Text, Title } = Typography;
 
-const WikiAdmin: React.FC = () => {
+const WikiProjectAdmin: React.FC = () => {
   const [showCreateModalForm, setShowCreateModalForm] = useState(false);
   const [showEditorModalForm, setShowEditorModalForm] = useState(false);
   const actionRef = useRef<ActionType>();
@@ -91,7 +92,11 @@ const WikiAdmin: React.FC = () => {
               setShowEditorModalForm(true);
             }}
           />
-          <FileWordOutlined />
+          <FileWordOutlined
+            onClick={() => {
+              history.push(`/admin/wiki/document?projectKey=${entry.hashKey}`);
+            }}
+          />
           <DeleteOutlined
             onClick={() => {
               onDeleteWikiProjectClick(entry);
@@ -156,4 +161,4 @@ const WikiAdmin: React.FC = () => {
   );
 };
 
-export default WikiAdmin;
+export default WikiProjectAdmin;
