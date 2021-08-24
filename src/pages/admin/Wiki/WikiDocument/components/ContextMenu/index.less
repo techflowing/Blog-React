@@ -1,0 +1,26 @@
+@import './../../../../../../custom-define';
+
+.contextMenuList {
+  min-width: 100px;
+  background: @context-menu-background;
+
+  :global {
+    .ant-list-item {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .ant-list-item:hover {
+      background: @second-background;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  width: 100vw;
+  height: 100vh;
+}

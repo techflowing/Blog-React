@@ -3,4 +3,6 @@ export type WikiDocument = {
   key: string;
   children?: WikiDocument[];
   isLeaf?: boolean;
+  id: number;
+  parentId: number;
 };

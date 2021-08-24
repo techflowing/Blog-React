@@ -11,3 +11,13 @@ export async function getWikiProjectList(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/**
+ * 获取Wiki项目信息 POST /blog/v1/wiki/project/item
+ */
+export async function getWikiProjectInfo(key: string, options?: { [key: string]: any }) {
+  return request<API.Response<WikiProject>>(`/blog/v1/wiki/project/item?projectKey=${key}`, {
+    method: 'GET',
+    ...(options || {}),
+  });
+}

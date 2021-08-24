@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 export type SiderContentFooterLayoutType = {
   sider: React.ReactNode;
   content: React.ReactNode;
+  hideFooter?: boolean;
 };
 
 const SiderContentFooterLayout: React.FC<SiderContentFooterLayoutType> = (props) => {
@@ -27,6 +28,7 @@ const SiderContentFooterLayout: React.FC<SiderContentFooterLayoutType> = (props)
         {props.sider}
       </div>
       <div
+        className={'contentContainer'}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -36,9 +38,11 @@ const SiderContentFooterLayout: React.FC<SiderContentFooterLayoutType> = (props)
         }}
       >
         <div style={{ flex: '1 1 auto' }}>{props.content}</div>
-        <div style={{ flex: '0 0 auto' }}>
-          <Footer />
-        </div>
+        {!props.hideFooter && (
+          <div style={{ flex: '0 0 auto' }}>
+            <Footer />
+          </div>
+        )}
       </div>
     </div>
   );

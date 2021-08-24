@@ -55,7 +55,7 @@ class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
       insertScript('/assets/editor.md/lib/flowchart.min.js'),
       insertScript('/assets/editor.md/lib/jquery.flowchart.min.js'),
     ]).then(() => {
-      consoleLog('加载完成依赖JS完成');
+      consoleLog('加载依赖JS完成');
       this.markdownToHTML();
     });
   }
