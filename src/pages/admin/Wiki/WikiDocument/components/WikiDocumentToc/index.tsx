@@ -10,6 +10,7 @@ import CreateDocumentModalForm from '@/pages/admin/wiki/WikiDocument/components/
 import type { ContextMenuItem } from '@/pages/admin/wiki/WikiDocument/components/ContextMenu';
 import ContextMenu from '@/pages/admin/wiki/WikiDocument/components/ContextMenu';
 import type { EventDataNode } from 'rc-tree/lib/interface';
+import RenameDocumentModalForm from '@/pages/admin/wiki/WikiDocument/components/RenameDocumentModalForm';
 
 const { DirectoryTree } = Tree;
 const { Text } = Typography;
@@ -18,6 +19,9 @@ export type WikiDocumentTocType = {
   projectKey: string;
 };
 
+/**
+ * wiki目录
+ */
 const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
   // 控制新建Modal是否显示
   const [showCreateModal, setShowCreateModal] = useState<{
@@ -25,6 +29,11 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
     isDir: boolean;
     parentId: number;
   }>({ visible: false, isDir: false, parentId: 0 });
+  // 控制重命名 Modal
+  const [showRenameModal, setShowRenameModal] = useState<{
+    visible: boolean;
+    documentId: number;
+  }>({ visible: false, documentId: 0 });
   // 控制右键菜单
   const [contextMenu, setContextMenu] = useState<{
     visible: boolean;
@@ -81,6 +90,8 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
   };
 
   const onRightClickDocument = (event: React.MouseEvent, node: EventDataNode) => {
+    // @ts-ignore
+    const nodeId = node.id;
     setContextMenu({
       visible: true,
       pageX: event.pageX,
@@ -90,7 +101,7 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
           key: 'rename',
           title: '重命名',
           onItemClick: () => {
-            consoleLog(`点击重命名${node.isLeaf}`);
+            setShowRenameModal({ visible: true, documentId: nodeId });
           },
         },
         {
@@ -105,6 +116,8 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
   };
 
   const onRightClickDocumentDir = (event: React.MouseEvent, node: EventDataNode) => {
+    // @ts-ignore
+    const nodeId = node.id;
     setContextMenu({
       visible: true,
       pageX: event.pageX,
@@ -114,23 +127,21 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
           key: 'newDir',
           title: '新建文件夹',
           onItemClick: () => {
-            // @ts-ignore
-            showCreateDocumentDirModal(node.id);
+            showCreateDocumentDirModal(nodeId);
           },
         },
         {
           key: 'newDocument',
           title: '新建文件',
           onItemClick: () => {
-            // @ts-ignore
-            showCreateDocumentModal(node.id);
+            showCreateDocumentModal(nodeId);
           },
         },
         {
           key: 'rename',
           title: '重命名',
           onItemClick: () => {
-            consoleLog('点击重命名');
+            setShowRenameModal({ visible: true, documentId: nodeId });
           },
         },
         {
@@ -175,10 +186,8 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
         }}
         onRightClick={(info) => {
           if (info.node.isLeaf) {
-            consoleLog('点击叶子');
             onRightClickDocument(info.event, info.node);
           } else {
-            consoleLog('点击文件夹');
             onRightClickDocumentDir(info.event, info.node);
           }
         }}
@@ -196,6 +205,17 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
         isDir={showCreateModal.isDir}
         parentId={showCreateModal.parentId}
         projectKey={props.projectKey}
+      />
+      <RenameDocumentModalForm
+        visible={showRenameModal.visible}
+        onVisibleChange={(value) => {
+          setShowRenameModal({ ...showRenameModal, visible: value });
+        }}
+        onRenameSuccess={() => {
+          setShowRenameModal({ ...showRenameModal, visible: false });
+          fetchWikiDocumentTreeData();
+        }}
+        documentId={showRenameModal.documentId}
       />
       {contextMenu.visible && (
         <ContextMenu

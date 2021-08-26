@@ -4,3 +4,9 @@ export interface CreateDocumentBody {
   isDir: boolean;
   parentId: number;
 }
+
+export interface RenameDocumentBody {
+  name: string;
+  projectKey: string;
+  documentId: number;
+}
