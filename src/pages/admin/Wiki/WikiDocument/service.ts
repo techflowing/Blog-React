@@ -1,6 +1,9 @@
 import { request } from '@@/plugin-request/request';
 import type { API } from '@/services/typings';
-import type { CreateDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
+import type {
+  CreateDocumentBody,
+  DeleteDocumentBody,
+} from '@/pages/admin/wiki/WikiDocument/document-typing';
 import type { RenameDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
 
 /**
@@ -22,6 +25,17 @@ export async function createNewDocument(
  */
 export async function renameDocument(info: RenameDocumentBody, options?: { [key: string]: any }) {
   return request<API.Response<any>>(`/blog/v1/admin/wiki/document/rename`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}
+
+/**
+ * 删除Wiki 文档 POST /blog/v1/admin/wiki/document/delete
+ */
+export async function deleteDocument(info: DeleteDocumentBody, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/wiki/document/delete`, {
     method: 'POST',
     data: info,
     ...(options || {}),

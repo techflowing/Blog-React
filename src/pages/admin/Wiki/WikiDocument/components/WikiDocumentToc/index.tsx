@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { message, Tree, Typography } from 'antd';
+import { message, Modal, Tree, Typography } from 'antd';
 import type { WikiDocument } from '@/pages/wiki/WikiDocument/wiki-doc-typings';
 import { getWikiDocumentTree } from '@/pages/wiki/WikiDocument/service';
 import { consoleLog } from '@/utils/common-util';
 import styles from './index.less';
-import { FileAddOutlined, FileWordOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, FileAddOutlined, FileWordOutlined } from '@ant-design/icons';
 import { getWikiProjectInfo } from '@/pages/wiki/WikiProject/service';
 import CreateDocumentModalForm from '@/pages/admin/wiki/WikiDocument/components/CreateDocumentModalForm';
 import type { ContextMenuItem } from '@/pages/admin/wiki/WikiDocument/components/ContextMenu';
 import ContextMenu from '@/pages/admin/wiki/WikiDocument/components/ContextMenu';
 import type { EventDataNode } from 'rc-tree/lib/interface';
 import RenameDocumentModalForm from '@/pages/admin/wiki/WikiDocument/components/RenameDocumentModalForm';
+import type { DataNode } from 'rc-tree/lib/interface';
+import { deleteDocument } from '@/pages/admin/wiki/WikiDocument/service';
 
 const { DirectoryTree } = Tree;
 const { Text } = Typography;
@@ -75,18 +77,70 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
   }, [props.projectKey]);
 
   /**
+   * 遍历获取所有子节点Id
+   * @param node 节点
+   */
+  const traverseAllChildrenId = (node: DataNode): number[] => {
+    const result = new Array<number>();
+    const nodeQueue = new Array<DataNode>();
+    nodeQueue.push(node);
+    while (nodeQueue.length !== 0) {
+      const curNode = nodeQueue.shift();
+      if (curNode !== undefined) {
+        // @ts-ignore
+        result.push(curNode.id);
+        if (!curNode.isLeaf && curNode.children !== undefined && curNode.children.length > 0) {
+          curNode?.children.forEach((child) => nodeQueue.push(child));
+        }
+      }
+    }
+    return result;
+  };
+
+  /**
    * 创建文件
    * @param parentId 父级ID
    */
   const showCreateDocumentModal = (parentId: number) => {
     setShowCreateModal({ visible: true, isDir: false, parentId });
   };
+
   /**
    * 创建文件夹
    * @param parentId 父级ID
    */
   const showCreateDocumentDirModal = (parentId: number) => {
     setShowCreateModal({ visible: true, isDir: true, parentId });
+  };
+
+  /**
+   * 删除弹窗确认
+   */
+  const showDeleteConfirmModal = (isDir: boolean, node: EventDataNode) => {
+    Modal.confirm({
+      title: '删除确认',
+      icon: <ExclamationCircleOutlined />,
+      content: isDir ? '是否删除当前目录以及所有子文档？' : '是否删除此文档？',
+      okText: '删除',
+      cancelText: '取消',
+      onOk: () => {
+        const ids = new Array<number>();
+        if (isDir) {
+          ids.push(...traverseAllChildrenId(node));
+        } else {
+          // @ts-ignore
+          ids.push(node.id);
+        }
+        deleteDocument({ projectKey: props.projectKey, documentId: ids }).then((resp) => {
+          if (resp.code === 0) {
+            message.success('删除成功');
+            fetchWikiDocumentTreeData();
+          } else {
+            message.error(`删除失败：${resp.message}`);
+          }
+        });
+      },
+    });
   };
 
   const onRightClickDocument = (event: React.MouseEvent, node: EventDataNode) => {
@@ -108,7 +162,7 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
           key: 'delete',
           title: '删除',
           onItemClick: () => {
-            consoleLog('点击删除');
+            showDeleteConfirmModal(false, node);
           },
         },
       ],
@@ -148,7 +202,7 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
           key: 'delete',
           title: '删除',
           onItemClick: () => {
-            consoleLog('点击删除');
+            showDeleteConfirmModal(true, node);
           },
         },
       ],

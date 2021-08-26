@@ -10,3 +10,8 @@ export interface RenameDocumentBody {
   projectKey: string;
   documentId: number;
 }
+
+export interface DeleteDocumentBody {
+  projectKey: string;
+  documentId: number[];
+}
