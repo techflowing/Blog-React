@@ -3,6 +3,7 @@ import type { API } from '@/services/typings';
 import type {
   CreateDocumentBody,
   DeleteDocumentBody,
+  DragDocumentBody,
 } from '@/pages/admin/wiki/WikiDocument/document-typing';
 import type { RenameDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
 
@@ -36,6 +37,17 @@ export async function renameDocument(info: RenameDocumentBody, options?: { [key:
  */
 export async function deleteDocument(info: DeleteDocumentBody, options?: { [key: string]: any }) {
   return request<API.Response<any>>(`/blog/v1/admin/wiki/document/delete`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}
+
+/**
+ * 移动Wiki 文档 POST /blog/v1/admin/wiki/document/drag
+ */
+export async function dragDocument(info: DragDocumentBody, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/wiki/document/drag`, {
     method: 'POST',
     data: info,
     ...(options || {}),

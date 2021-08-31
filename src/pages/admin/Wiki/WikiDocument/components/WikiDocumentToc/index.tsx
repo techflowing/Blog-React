@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { message, Modal, Tree, Typography } from 'antd';
 import type { WikiDocument } from '@/pages/wiki/WikiDocument/wiki-doc-typings';
 import { getWikiDocumentTree } from '@/pages/wiki/WikiDocument/service';
-import { consoleLog } from '@/utils/common-util';
 import styles from './index.less';
 import { ExclamationCircleOutlined, FileAddOutlined, FileWordOutlined } from '@ant-design/icons';
 import { getWikiProjectInfo } from '@/pages/wiki/WikiProject/service';
@@ -12,7 +11,8 @@ import ContextMenu from '@/pages/admin/wiki/WikiDocument/components/ContextMenu'
 import type { EventDataNode } from 'rc-tree/lib/interface';
 import RenameDocumentModalForm from '@/pages/admin/wiki/WikiDocument/components/RenameDocumentModalForm';
 import type { DataNode } from 'rc-tree/lib/interface';
-import { deleteDocument } from '@/pages/admin/wiki/WikiDocument/service';
+import { deleteDocument, dragDocument } from '@/pages/admin/wiki/WikiDocument/service';
+import type { DragDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
 
 const { DirectoryTree } = Tree;
 const { Text } = Typography;
@@ -209,6 +209,17 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
     });
   };
 
+  const onDragDocument = (body: DragDocumentBody) => {
+    dragDocument(body).then((resp) => {
+      if (resp.code === 0) {
+        message.success('拖动重排序成功');
+        fetchWikiDocumentTreeData();
+      } else {
+        message.error(`拖动重排序失败：${resp.message}`);
+      }
+    });
+  };
+
   const dismissContextMenu = () => {
     setContextMenu({ ...contextMenu, visible: false });
   };
@@ -235,8 +246,23 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
         draggable
         blockNode={true}
         multiple={false}
-        onDrop={() => {
-          consoleLog('onDrop');
+        allowDrop={({ dropNode, dropPosition }) => {
+          // 不允许到叶子节点内部
+          return !(dropNode.isLeaf && dropPosition === 0);
+        }}
+        onDrop={({ node, dragNode }) => {
+          // 根据dragOver\dragOverGapTop\dragOverGapBottom 判断
+          // 拖入文件夹内部，则默认放在第一个位置
+          onDragDocument({
+            projectKey: props.projectKey,
+            dragOver: node.dragOver,
+            dragOverGapTop: node.dragOverGapTop,
+            dragOverGapBottom: node.dragOverGapBottom,
+            // @ts-ignore
+            targetNode: { id: node.id, parentId: node.parentId },
+            // @ts-ignore
+            dragNode: { id: dragNode.id, parentId: dragNode.parentId },
+          });
         }}
         onRightClick={(info) => {
           if (info.node.isLeaf) {

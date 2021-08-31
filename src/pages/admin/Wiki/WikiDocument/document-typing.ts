@@ -15,3 +15,12 @@ export interface DeleteDocumentBody {
   projectKey: string;
   documentId: number[];
 }
+
+export interface DragDocumentBody {
+  projectKey: string;
+  dragOver: boolean;
+  dragOverGapTop: boolean;
+  dragOverGapBottom: boolean;
+  targetNode: { id: number; parentId: number };
+  dragNode: { id: number; parentId: number };
+}
