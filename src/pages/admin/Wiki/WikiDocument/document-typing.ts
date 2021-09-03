@@ -24,3 +24,8 @@ export interface DragDocumentBody {
   targetNode: { id: number; parentId: number };
   dragNode: { id: number; parentId: number };
 }
+
+export interface updateDocumentBody {
+  content: string;
+  hashKey: string;
+}

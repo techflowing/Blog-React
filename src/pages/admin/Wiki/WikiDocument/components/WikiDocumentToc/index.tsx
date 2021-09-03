@@ -19,6 +19,9 @@ const { Text } = Typography;
 
 export type WikiDocumentTocType = {
   projectKey: string;
+  selectable: boolean;
+  onDocumentSelect: (key: string) => void;
+  onDocumentClick: (selectable: boolean) => void;
 };
 
 /**
@@ -244,6 +247,7 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
       <DirectoryTree
         className={styles.wikiDocumentTocTree}
         draggable
+        selectable={props.selectable}
         blockNode={true}
         multiple={false}
         allowDrop={({ dropNode, dropPosition }) => {
@@ -269,6 +273,16 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
             onRightClickDocument(info.event, info.node);
           } else {
             onRightClickDocumentDir(info.event, info.node);
+          }
+        }}
+        onSelect={(selectedKeys, info) => {
+          if (info.node.isLeaf) {
+            props.onDocumentSelect(info.node.key as string);
+          }
+        }}
+        onClick={(e, node) => {
+          if (node.isLeaf) {
+            props.onDocumentClick(props.selectable);
           }
         }}
         treeData={treeData}

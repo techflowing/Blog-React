@@ -6,6 +6,7 @@ import type {
   DragDocumentBody,
 } from '@/pages/admin/wiki/WikiDocument/document-typing';
 import type { RenameDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
+import { updateDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
 
 /**
  * 创建Wiki 文档 POST /blog/v1/admin/wiki/document/create
@@ -48,6 +49,17 @@ export async function deleteDocument(info: DeleteDocumentBody, options?: { [key:
  */
 export async function dragDocument(info: DragDocumentBody, options?: { [key: string]: any }) {
   return request<API.Response<any>>(`/blog/v1/admin/wiki/document/drag`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}
+
+/**
+ * 更新Wiki 文档 POST /blog/v1/admin/wiki/document/update
+ */
+export async function updateDocument(info: updateDocumentBody, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/wiki/document/update`, {
     method: 'POST',
     data: info,
     ...(options || {}),

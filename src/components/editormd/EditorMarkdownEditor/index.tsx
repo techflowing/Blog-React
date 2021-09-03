@@ -1,15 +1,29 @@
+// @ts-nocheck
 import React from 'react';
 import { consoleLog, insertScript } from '@/utils/common-util';
 import '../css/editormd.css';
 import '../EditorMarkdownHtml/index.css';
 import './index.css';
 
-interface EditorMarkdownEditorProps {}
+interface EditorMarkdownEditorProps {
+  content?: string;
+  onChange: () => void;
+  onSaveClick: (content: string) => Promise<boolean>;
+}
 
-class EditorMarkdownEditor extends React.PureComponent<EditorMarkdownEditorProps> {
+class EditorMarkdownEditor extends React.Component<EditorMarkdownEditorProps> {
+  updateSaveStatus(enable: boolean) {
+    if (enable) {
+      document.getElementById('markdown-save')?.setAttribute('class', 'change');
+    } else {
+      document.getElementById('markdown-save')?.setAttribute('class', 'disabled');
+    }
+  }
+
   showEditorMdEditor() {
-    // @ts-ignore
-    editormd('editormd', {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const ref = this;
+    this.editor = editormd('editormd', {
       path: '/assets/editor.md/lib/',
       placeholder: '本编辑器支持Markdown编辑，左边编写，右边预览',
       imageUpload: true,
@@ -78,11 +92,19 @@ class EditorMarkdownEditor extends React.PureComponent<EditorMarkdownEditorProps
         save: '<a href="javascript:;" title="保存" id="markdown-save" class="disabled"> <i class="fa fa-save" name="save"></i></a>',
       },
       toolbarHandlers: {
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        save(cm, icon, cursor, selection) {
-          consoleLog('点击保存');
+        save() {
+          ref.props.onSaveClick(ref.editor.getMarkdown()).then((result) => {
+            ref.updateSaveStatus(!result);
+          });
         },
+      },
+      onchange() {
+        if (ref.ignoreChange) {
+          ref.ignoreChange = false;
+          return;
+        }
+        ref.updateSaveStatus(true);
+        ref.props.onChange();
       },
     });
   }
@@ -104,9 +126,23 @@ class EditorMarkdownEditor extends React.PureComponent<EditorMarkdownEditorProps
     });
   }
 
+  shouldComponentUpdate(nextProps: Readonly<EditorMarkdownEditorProps>): boolean {
+    return nextProps.content !== this.props.content;
+  }
+
+  componentDidUpdate() {
+    consoleLog('EditorMarkdownEditor Update');
+    if (this.props.content !== undefined) {
+      this.updateSaveStatus(false);
+      this.ignoreChange = true;
+      this.editor?.setValue(this.props.content);
+    }
+  }
+
   render() {
     return (
       <div id="editormd">
+        <input type="hidden" name="doc_id" id="documentId" value="" />
         <textarea style={{ display: 'none' }} />
       </div>
     );
@@ -114,3 +150,4 @@ class EditorMarkdownEditor extends React.PureComponent<EditorMarkdownEditorProps
 }
 
 export default EditorMarkdownEditor;
+// @ts-check
