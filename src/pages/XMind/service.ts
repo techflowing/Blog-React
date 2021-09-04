@@ -16,7 +16,7 @@ export async function getXmindTree(options?: Record<string, any>) {
  * 获取内容 GET /blog/v1/xmind/content
  */
 export async function getXmindContent(key: string, options?: Record<string, any>) {
-  return request<API.Response<Xmind[]>>(`/blog/v1/xmind/content?key=${key}`, {
+  return request<API.Response<string>>(`/blog/v1/xmind/content?key=${key}`, {
     method: 'GET',
     ...(options || {}),
   });

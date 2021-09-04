@@ -12,7 +12,9 @@ const XMind: React.FC = () => {
   // 默认站开的节点
   const [expandKey, setExpandKey] = useState<string>();
   // 内容
-  const [content, setContent] = useState<any>();
+  const [content, setContent] = useState<string>();
+  // 标题
+  const [title, setTitle] = useState<string>();
 
   /**
    * 查找第一个非空父节点
@@ -34,7 +36,7 @@ const XMind: React.FC = () => {
    * 加载文档内容
    * @param key 节点Key
    */
-  const loadXmindContentByKey = (key: string) => {
+  const loadXMindContentByKey = (key: string) => {
     getXmindContent(key).then((resp) => {
       if (resp.code === 0 && resp.data !== null) {
         setContent(resp.data);
@@ -52,7 +54,8 @@ const XMind: React.FC = () => {
     if (node === undefined) {
       return;
     }
-    loadXmindContentByKey(node.key);
+    setTitle(node.title);
+    loadXMindContentByKey(node.key);
   };
 
   /**
@@ -88,12 +91,14 @@ const XMind: React.FC = () => {
         <XMindMenu
           menuData={xmindTree}
           expandKey={expandKey}
-          onXMindSelect={(key) => {
-            loadXmindContentByKey(key);
+          onXMindSelect={(nodeTitle, nodeKey) => {
+            setTitle(nodeTitle);
+            loadXMindContentByKey(nodeKey);
           }}
         />
       }
-      content={<XMindMapContent content={content} />}
+      content={<XMindMapContent title={title} content={content} />}
+      hideFooter={true}
     />
   );
 };

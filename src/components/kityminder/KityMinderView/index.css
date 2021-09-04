@@ -1,0 +1,39 @@
+.xmind-map-container {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.xmind-content {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+
+.xmind-name {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 8px;
+}
+
+.xmind-menu-container {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px;
+  background: #202c2e2e;
+  border-radius: 5px;
+}
+
+.xmind-menu-item {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  cursor: pointer;
+}

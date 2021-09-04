@@ -9,7 +9,7 @@ const { DirectoryTree } = Tree;
 export type XMindMenuType = {
   menuData: Xmind[];
   expandKey?: string;
-  onXMindSelect: (key: string) => void;
+  onXMindSelect: (title: string, key: string) => void;
 };
 
 /**
@@ -35,7 +35,7 @@ const XMindMenu: React.FC<XMindMenuType> = (props) => {
       }}
       onSelect={(keys, info) => {
         if (info.node.isLeaf && keys?.length === 1) {
-          props.onXMindSelect(info.node.key as string);
+          props.onXMindSelect(info.node.title as string, info.node.key as string);
         }
       }}
     />
