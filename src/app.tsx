@@ -85,11 +85,12 @@ export const request: RequestConfig = {
         message: '网络异常',
       });
     }
-    if (data) {
-      notification.error({
-        description: `请求异常（${data.code}）`,
-        message: data.message,
-      });
+    if (data === undefined || data.code === undefined) {
+      return {
+        code: -1,
+        message: '未知异常',
+        data: {},
+      };
     }
     // 返回原始数据，再交由业务层处理
     return data;

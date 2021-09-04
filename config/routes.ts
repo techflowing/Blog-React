@@ -40,7 +40,7 @@
   {
     path: '/xmind',
     name: '思维导图',
-    component: '@/components/layout/ContentFooterLayout',
+    component: './XMind',
   },
   {
     path: '/thought',

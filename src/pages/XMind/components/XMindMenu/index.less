@@ -1,0 +1,34 @@
+@import './../../../../custom-define';
+
+.xMindMenu {
+  height: 100%;
+  padding-top: 8px;
+  overflow: auto;
+  background: @sider-bar-menu-background !important;
+
+  :global {
+    .ant-tree-treenode {
+      height: @sider-bar-menu-item-height;
+      padding: 0 8px;
+    }
+
+    .ant-tree-list-holder-inner {
+      flex-wrap: wrap;
+    }
+
+    .ant-tree-node-content-wrapper {
+      display: flex;
+      margin: auto 0;
+      padding: 0;
+    }
+
+    .ant-tree-switcher {
+      margin: auto 0;
+    }
+
+    .ant-tree-title,
+    .ant-tree-iconEle {
+      font-size: 14px;
+    }
+  }
+}
