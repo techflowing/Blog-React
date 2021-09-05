@@ -19,6 +19,7 @@ import CreateXMindModalForm from '@/pages/admin/xmind/XMindProject/components/Cr
 import RenameXMindModalForm from '@/pages/admin/xmind/XMindProject/components/RenameXMindModalForm';
 import { deleteXMind } from '@/pages/admin/xmind/service';
 import { traverseAllChildrenId } from '@/utils/react-tree-util';
+import { history } from 'umi';
 
 const { DirectoryTree } = Tree;
 const { Title, Text } = Typography;
@@ -147,7 +148,13 @@ const XMindProject: React.FC = () => {
       <div className={styles.xMindTitleContainer}>
         <Text>{node.title}</Text>
         <div className={styles.xMindActionContainer}>
-          <EditOutlined />
+          <EditOutlined
+            onClick={(e) => {
+              e.stopPropagation();
+              history.push(`/admin/xmind/editor?hashKey=${node.key}`);
+              // window.open(, '_blank');
+            }}
+          />
           <FileTextOutlined
             onClick={(e) => {
               e.stopPropagation();

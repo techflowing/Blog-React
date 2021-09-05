@@ -89,6 +89,9 @@ export const insertScript = (src: string, async: boolean = false) => {
           // @ts-ignore
           script.onreadystatechange = null;
           resolve(true);
+        } else {
+          // @ts-ignore
+          consoleLog(`加载异常：${script.readyState}`);
         }
       };
     } else {
@@ -98,5 +101,42 @@ export const insertScript = (src: string, async: boolean = false) => {
       };
     }
     document.body.appendChild(script);
+  });
+};
+
+/**
+ * 动态加载JS，去重，同 Src，不做重复加载
+ * @param srcArray 数据
+ */
+export const insertScriptWithNoRepeat = (srcArray: string[], serial: boolean = false) => {
+  return new Promise((resolve) => {
+    const current = document.getElementsByTagName('script');
+    const set = new Set<string>();
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < current.length; i++) {
+      const src = current[i].getAttribute('src');
+      if (src !== null) {
+        set.add(src);
+      }
+    }
+    if (set.size === 0) {
+      resolve(true);
+      return;
+    }
+    // 最终要动态插入的Script 地址
+    const final = new Array<Promise<any>>();
+    srcArray.forEach((value) => {
+      if (!set.has(value)) {
+        final.push(insertScript(value));
+      }
+    });
+    if (serial) {
+      // @ts-ignore
+      final.reduce((prev, next) => prev.then(next), resolve(true));
+    } else {
+      Promise.all(final).then(() => {
+        resolve(true);
+      });
+    }
   });
 };

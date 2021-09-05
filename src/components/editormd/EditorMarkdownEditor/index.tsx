@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
-import { consoleLog, insertScript } from '@/utils/common-util';
-import '../css/editormd.css';
+import { consoleLog, insertScriptWithNoRepeat } from '@/utils/common-util';
+import '../../../../public/assets/editor.md/css/editormd.css';
 import '../EditorMarkdownHtml/index.css';
 import './index.css';
 
@@ -110,17 +110,18 @@ class EditorMarkdownEditor extends React.Component<EditorMarkdownEditorProps> {
   }
 
   componentDidMount() {
-    Promise.all([
-      insertScript('/assets/editor.md/js/jquery.js'),
-      insertScript('/assets/editor.md/js/editormd.js'),
-      insertScript('/assets/editor.md/lib/marked.min.js'),
-      insertScript('/assets/editor.md/lib/prettify.min.js'),
-      insertScript('/assets/editor.md/lib/raphael.min.js'),
-      insertScript('/assets/editor.md/lib/underscore.min.js'),
-      insertScript('/assets/editor.md/lib/sequence-diagram.min.js'),
-      insertScript('/assets/editor.md/lib/flowchart.min.js'),
-      insertScript('/assets/editor.md/lib/jquery.flowchart.min.js'),
-    ]).then(() => {
+    const js = [
+      '/assets/common/js/jquery.js',
+      '/assets/editor.md/js/editormd.js',
+      '/assets/editor.md/lib/marked.min.js',
+      '/assets/editor.md/lib/prettify.min.js',
+      '/assets/editor.md/lib/raphael.min.js',
+      '/assets/editor.md/lib/underscore.min.js',
+      '/assets/editor.md/lib/sequence-diagram.min.js',
+      '/assets/editor.md/lib/flowchart.min.js',
+      '/assets/editor.md/lib/jquery.flowchart.min.js',
+    ];
+    insertScriptWithNoRepeat(js).then(() => {
       consoleLog('加载依赖JS完成');
       this.showEditorMdEditor();
     });

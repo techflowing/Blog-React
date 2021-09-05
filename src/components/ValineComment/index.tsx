@@ -1,5 +1,5 @@
 import React from 'react';
-import { insertScript } from '@/utils/common-util';
+import { insertScriptWithNoRepeat } from '@/utils/common-util';
 import './index.css';
 
 interface ValineCommentProps {
@@ -16,7 +16,7 @@ interface ValineCommentProps {
  */
 class ValineComment extends React.PureComponent<ValineCommentProps> {
   componentDidMount() {
-    insertScript('https://unpkg.com/valine/dist/Valine.min.js').then(() => {
+    insertScriptWithNoRepeat(['https://unpkg.com/valine/dist/Valine.min.js']).then(() => {
       // @ts-ignore
       // eslint-disable-next-line no-new
       new Valine({

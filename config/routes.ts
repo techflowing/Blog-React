@@ -89,8 +89,17 @@
       },
       {
         path: '/admin/xmind/project',
-        name: '思维导图数据管理',
+        name: '思维导图管理',
         component: './admin/xmind/XMindProject',
+      },
+      {
+        path: '/admin/xmind/editor',
+        name: '思维导图编辑',
+        component: './admin/xmind/XMindEditor',
+        hideInMenu: true,
+        menuRender: false,
+        headerRender: false,
+        footerRender: false,
       },
     ],
   },

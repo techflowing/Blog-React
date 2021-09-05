@@ -7,8 +7,8 @@ import { getWikiProjectList } from '@/pages/wiki/WikiProject/service';
 import {
   FormOutlined,
   DeleteOutlined,
-  FileWordOutlined,
   ExclamationCircleOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import AddNewModalForm from '@/pages/admin/wiki/WikiProject/components/AddNewModalForm';
 import { deleteWikiProject } from '@/pages/admin/wiki/service';
@@ -91,13 +91,13 @@ const WikiProjectAdmin: React.FC = () => {
         <div style={{ display: 'flex', gap: 8 }} key={'option'}>
           <FormOutlined
             onClick={() => {
-              editorProject.current = entry;
-              setShowEditorModalForm(true);
+              history.push(`/admin/wiki/document?projectKey=${entry.hashKey}`);
             }}
           />
-          <FileWordOutlined
+          <SettingOutlined
             onClick={() => {
-              history.push(`/admin/wiki/document?projectKey=${entry.hashKey}`);
+              editorProject.current = entry;
+              setShowEditorModalForm(true);
             }}
           />
           <DeleteOutlined

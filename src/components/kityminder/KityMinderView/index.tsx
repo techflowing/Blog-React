@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import './index.css';
-import { consoleLog, insertScript } from '@/utils/common-util';
+import { consoleLog, insertScriptWithNoRepeat } from '@/utils/common-util';
 import { AimOutlined, ZoomInOutlined, ZoomOutOutlined } from '@ant-design/icons';
 
 interface KityMinderViewProps {
@@ -44,11 +44,12 @@ class KityMinderView extends React.PureComponent<KityMinderViewProps> {
   }
 
   componentDidMount() {
-    Promise.all([
-      insertScript('/assets/editor.md/js/jquery.js'),
-      insertScript('/assets/kityminder/js/kity.min.js'),
-      insertScript('/assets/kityminder/js/kityminder.core.min.js'),
-    ]).then(() => {
+    const js = [
+      '/assets/common/js/jquery.js',
+      '/assets/kityminder/js/kity.min.js',
+      '/assets/kityminder/js/kityminder.core.min.js',
+    ];
+    insertScriptWithNoRepeat(js).then(() => {
       consoleLog('加载依赖JS完成');
       this.showXMindMapContent();
     });
