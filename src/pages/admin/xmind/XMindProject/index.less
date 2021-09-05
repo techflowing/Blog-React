@@ -1,5 +1,13 @@
 @import './../../../../custom-define';
 
+.xMindTreeContainer {
+  :global {
+    .ant-pro-card-body {
+      padding: 0 16px 16px;
+    }
+  }
+}
+
 .xMindTree {
   height: 100%;
   padding-top: 8px;
@@ -29,5 +37,20 @@
     .ant-tree-iconEle {
       font-size: 14px;
     }
+
+    .ant-tree-title {
+      width: 100%;
+    }
   }
+}
+
+.xMindTitleContainer {
+  display: flex;
+}
+
+.xMindActionContainer {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
 }

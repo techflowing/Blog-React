@@ -6,7 +6,7 @@ import type {
   DragDocumentBody,
 } from '@/pages/admin/wiki/WikiDocument/document-typing';
 import type { RenameDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
-import { updateDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
+import type { UpdateDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
 
 /**
  * 创建Wiki 文档 POST /blog/v1/admin/wiki/document/create
@@ -58,7 +58,7 @@ export async function dragDocument(info: DragDocumentBody, options?: { [key: str
 /**
  * 更新Wiki 文档 POST /blog/v1/admin/wiki/document/update
  */
-export async function updateDocument(info: updateDocumentBody, options?: { [key: string]: any }) {
+export async function updateDocument(info: UpdateDocumentBody, options?: { [key: string]: any }) {
   return request<API.Response<any>>(`/blog/v1/admin/wiki/document/update`, {
     method: 'POST',
     data: info,

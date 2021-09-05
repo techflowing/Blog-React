@@ -10,9 +10,9 @@ import type { ContextMenuItem } from '@/pages/admin/wiki/WikiDocument/components
 import ContextMenu from '@/pages/admin/wiki/WikiDocument/components/ContextMenu';
 import type { EventDataNode } from 'rc-tree/lib/interface';
 import RenameDocumentModalForm from '@/pages/admin/wiki/WikiDocument/components/RenameDocumentModalForm';
-import type { DataNode } from 'rc-tree/lib/interface';
 import { deleteDocument, dragDocument } from '@/pages/admin/wiki/WikiDocument/service';
 import type { DragDocumentBody } from '@/pages/admin/wiki/WikiDocument/document-typing';
+import { traverseAllChildrenId } from '@/utils/react-tree-util';
 
 const { DirectoryTree } = Tree;
 const { Text } = Typography;
@@ -78,27 +78,6 @@ const WikiDocumentToc: React.FC<WikiDocumentTocType> = (props) => {
       }
     });
   }, [props.projectKey]);
-
-  /**
-   * 遍历获取所有子节点Id
-   * @param node 节点
-   */
-  const traverseAllChildrenId = (node: DataNode): number[] => {
-    const result = new Array<number>();
-    const nodeQueue = new Array<DataNode>();
-    nodeQueue.push(node);
-    while (nodeQueue.length !== 0) {
-      const curNode = nodeQueue.shift();
-      if (curNode !== undefined) {
-        // @ts-ignore
-        result.push(curNode.id);
-        if (!curNode.isLeaf && curNode.children !== undefined && curNode.children.length > 0) {
-          curNode?.children.forEach((child) => nodeQueue.push(child));
-        }
-      }
-    }
-    return result;
-  };
 
   /**
    * 创建文件

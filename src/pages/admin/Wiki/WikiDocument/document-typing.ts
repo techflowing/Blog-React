@@ -25,7 +25,7 @@ export interface DragDocumentBody {
   dragNode: { id: number; parentId: number };
 }
 
-export interface updateDocumentBody {
+export interface UpdateDocumentBody {
   content: string;
   hashKey: string;
 }

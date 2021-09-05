@@ -14,6 +14,7 @@ import AddNewModalForm from '@/pages/admin/wiki/WikiProject/components/AddNewMod
 import { deleteWikiProject } from '@/pages/admin/wiki/service';
 import EditorModalForm from '@/pages/admin/wiki/WikiProject/components/EditorModalForm';
 import { history } from '@@/core/history';
+import AdminContentWrapper from '@/components/layout/AdminSecurityLayout/components/AdminContentWrapper';
 
 const { Text, Title } = Typography;
 
@@ -60,12 +61,14 @@ const WikiProjectAdmin: React.FC = () => {
       dataIndex: 'description',
     },
     {
-      title: '文档数量',
+      title: '文档数',
       dataIndex: 'docCount',
+      width: 80,
     },
     {
       title: '封面图',
       dataIndex: 'thumb',
+      width: 80,
       render: (_, entry) => {
         return <Image src={entry.thumb} width={32} preview={false} />;
       },
@@ -108,7 +111,7 @@ const WikiProjectAdmin: React.FC = () => {
   ];
 
   return (
-    <div>
+    <AdminContentWrapper>
       <Title level={5}>Wiki 数据管理</Title>
       <Divider dashed />
       <ProTable<WikiProject>
@@ -157,7 +160,7 @@ const WikiProjectAdmin: React.FC = () => {
           actionRef.current?.reload();
         }}
       />
-    </div>
+    </AdminContentWrapper>
   );
 };
 

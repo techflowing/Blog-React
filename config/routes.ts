@@ -87,6 +87,11 @@
         headerRender: false,
         footerRender: false,
       },
+      {
+        path: '/admin/xmind/project',
+        name: '思维导图数据管理',
+        component: './admin/xmind/XMindProject',
+      },
     ],
   },
   {
