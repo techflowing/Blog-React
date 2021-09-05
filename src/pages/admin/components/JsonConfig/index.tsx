@@ -36,49 +36,52 @@ const JsonConfig: React.FC<JsonConfigType> = (props) => {
   }, []);
 
   return (
-    <div>
-      <Title level={5} style={{ display: 'inline-block' }}>
-        {props.title}
-      </Title>
-      <Button
-        type={'primary'}
-        style={{ float: 'right' }}
-        onClick={() => {
-          const content = contentRef.current;
-          if (!isJsonString(content)) {
-            message.error('数据异常，不是JSON格式数据');
-            return;
-          }
-          props.updateConfig(JSON.parse(content)).then((result) => {
-            if (result) {
-              message.success('数据更新成功');
-            } else {
-              message.error('数据更新失败');
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div>
+        <Title level={5} style={{ display: 'inline-block' }}>
+          {props.title}
+        </Title>
+        <Button
+          type={'primary'}
+          style={{ float: 'right' }}
+          onClick={() => {
+            const content = contentRef.current;
+            if (!isJsonString(content)) {
+              message.error('数据异常，不是JSON格式数据');
+              return;
             }
-          });
-        }}
-      >
-        提交修改
-      </Button>
+            props.updateConfig(JSON.parse(content)).then((result) => {
+              if (result) {
+                message.success('数据更新成功');
+              } else {
+                message.error('数据更新失败');
+              }
+            });
+          }}
+        >
+          提交修改
+        </Button>
 
-      {props.desc}
+        {props.desc}
 
-      {props.desc === undefined ? <br /> : ''}
-      <br />
-
-      <JSONEditorReact
-        search={false}
-        enableSort={false}
-        enableTransform={false}
-        schema={schema}
-        text={plaintext}
-        mode={'code'}
-        modes={['code', 'tree']}
-        indentation={2}
-        onChangeText={(jsonString: string) => {
-          contentRef.current = jsonString;
-        }}
-      />
+        {props.desc === undefined ? <br /> : ''}
+        <br />
+      </div>
+      <div style={{ flex: 1 }}>
+        <JSONEditorReact
+          search={false}
+          enableSort={false}
+          enableTransform={false}
+          schema={schema}
+          text={plaintext}
+          mode={'code'}
+          modes={['code', 'tree']}
+          indentation={2}
+          onChangeText={(jsonString: string) => {
+            contentRef.current = jsonString;
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -3,18 +3,6 @@
   height: 100%;
 }
 
-.jsoneditor-outer {
-  min-height: 600px;
-}
-
-textarea.jsoneditor-text {
-  min-height: 600px;
-}
-
-div.ace-jsoneditor {
-  min-height: 600px;
-}
-
 /* dark styling of the editor: https://github.com/josdejong/jsoneditor/blob/develop/examples/css/darktheme.css */
 
 div.jsoneditor,
