@@ -47,7 +47,7 @@ class KityMinderView extends React.PureComponent<KityMinderViewProps> {
     const js = [
       '/assets/common/js/jquery.js',
       '/assets/kityminder/js/kity.min.js',
-      '/assets/kityminder/js/kityminder.core.min.js',
+      '/assets/kityminder/js/kityminder.core.js',
     ];
     insertScriptWithNoRepeat(js).then(() => {
       consoleLog('加载依赖JS完成');

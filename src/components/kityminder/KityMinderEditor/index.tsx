@@ -8,7 +8,12 @@ import '../../../../public/assets/kityminder/css/kityminder.core.css';
 import '../../../../public/assets/kityminder/css/kityminder.editor.css';
 import { consoleLog, insertScriptWithNoRepeat } from '@/utils/common-util';
 
-class KityMinderEditor extends React.PureComponent {
+interface KityMinderEditorProps {
+  content?: string;
+  onEnvReady: () => void;
+}
+
+class KityMinderEditor extends React.PureComponent<KityMinderEditorProps> {
   initKityminderEditor() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const ref = this;
@@ -19,6 +24,7 @@ class KityMinderEditor extends React.PureComponent {
           window.editor = editor;
           window.minder = minder;
           ref.loadFinish = true;
+          ref.props.onEnvReady();
         };
       });
     // 偶尔会加载失败，刷新会成功，临时处理下，还不知道原因
@@ -33,6 +39,7 @@ class KityMinderEditor extends React.PureComponent {
     this.loadFinish = false;
     const jsArray = [
       '/assets/common/js/jquery.js',
+      '/assets/common/js/jquery.xml2json.js',
       '/assets/common/js/bootstrap.min.js',
       '/assets/common/js/angular.js',
       '/assets/common/js/ui-bootstrap-tpls.min.js',
@@ -42,13 +49,24 @@ class KityMinderEditor extends React.PureComponent {
       '/assets/common/js/hotbox.js',
       '/assets/common/js/marked.js',
       '/assets/kityminder/js/kity.min.js',
-      '/assets/kityminder/js/kityminder.core.min.js',
-      '/assets/kityminder/js/kityminder.editor.min.js',
+      '/assets/kityminder/js/kityminder.core.js',
+      '/assets/kityminder/js/kityminder.editor.js',
     ];
     insertScriptWithNoRepeat(jsArray).then(() => {
       consoleLog('加载依赖JS完成');
       this.initKityminderEditor();
     });
+  }
+
+  shouldComponentUpdate(nextProps: Readonly<KityMinderEditor>): boolean {
+    return nextProps.content !== this.props.content;
+  }
+
+  componentDidUpdate() {
+    consoleLog('KityMinderEditor Update');
+    if (this.props.content !== undefined) {
+      window.editor.minder.importJson(JSON.parse(this.props.content));
+    }
   }
 
   render() {

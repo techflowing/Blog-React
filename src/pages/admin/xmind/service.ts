@@ -4,6 +4,7 @@ import type {
   CreateXMindBody,
   DeleteXMindBody,
   RenameXMindBody,
+  UpdateXMindBody,
 } from '@/pages/admin/xmind/xmind-typings';
 
 /**
@@ -33,6 +34,17 @@ export async function renameXMind(info: RenameXMindBody, options?: { [key: strin
  */
 export async function deleteXMind(info: DeleteXMindBody, options?: { [key: string]: any }) {
   return request<API.Response<any>>(`/blog/v1/admin/xmind/delete`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}
+
+/**
+ * 删除 POST /blog/v1/admin/xmind/delete
+ */
+export async function updateXMind(info: UpdateXMindBody, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/xmind/update`, {
     method: 'POST',
     data: info,
     ...(options || {}),

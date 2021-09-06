@@ -140,3 +140,24 @@ export const insertScriptWithNoRepeat = (srcArray: string[], serial: boolean = f
     }
   });
 };
+
+/**
+ * base64转换为图片blob
+ */
+export const dataURLtoBlob = (dataurl: any) => {
+  const arr = dataurl.split(',');
+  // 注意base64的最后面中括号和引号是不转译的
+  // eslint-disable-next-line no-underscore-dangle
+  const _arr = arr[1].substring(0, arr[1].length - 2);
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(_arr);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  // eslint-disable-next-line no-plusplus
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], {
+    type: mime,
+  });
+};

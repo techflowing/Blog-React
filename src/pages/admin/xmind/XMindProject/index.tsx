@@ -151,7 +151,7 @@ const XMindProject: React.FC = () => {
           <EditOutlined
             onClick={(e) => {
               e.stopPropagation();
-              history.push(`/admin/xmind/editor?hashKey=${node.key}`);
+              history.push(`/admin/xmind/editor?hashKey=${node.key}&name=${node.title}`);
               // window.open(, '_blank');
             }}
           />
