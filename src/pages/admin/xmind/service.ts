@@ -50,3 +50,14 @@ export async function updateXMind(info: UpdateXMindBody, options?: { [key: strin
     ...(options || {}),
   });
 }
+
+/**
+ * 导出XMind POST /blog/v1/admin/xmind/export-xmind
+ */
+export async function exportXMind(info: any, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/xmind/export-xmind`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}

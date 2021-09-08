@@ -4,8 +4,8 @@ import { getXmindContent } from '@/pages/XMind/service';
 import { Button, message, Typography, Upload } from 'antd';
 import { history } from 'umi';
 import styles from './index.less';
-import { updateXMind } from '@/pages/admin/xmind/service';
-import { consoleLog, dataURLtoBlob } from '@/utils/common-util';
+import { exportXMind, updateXMind } from '@/pages/admin/xmind/service';
+import { dataURLtoBlob, getBaseUrl } from '@/utils/common-util';
 
 const { Text } = Typography;
 
@@ -84,23 +84,31 @@ const XMindEditor: React.FC = () => {
   };
 
   /**
-   * 导出为Xmind文件
+   * 下载文件
+   * @param name 文件名称
+   */
+  const downloadXMindFile = (name: string) => {
+    const url = `${getBaseUrl()}/blog/v1/xmind/download?name=${encodeURIComponent(name)}`;
+    // 建立标签，模拟点击下载
+    const a = document.createElement('a');
+    a.href = url;
+    a.click();
+  };
+
+  /**
+   * 导出为Xmind文件，转出JSON后自己转 xmind
    */
   const onExportXMindButtonClick = () => {
-    consoleLog('点击');
     getEditotMinder()
-      ?.exportData('xmind')
+      ?.exportData('json')
       .then((data: any) => {
-        consoleLog(data);
-        const reader = new FileReader();
-        reader.addEventListener('loadend', () => {
-          consoleLog('loadend');
-          const res = JSON.parse(reader.result as string);
-          const a = document.createElement('a');
-          a.href = res.data;
-          a.click();
+        exportXMind(JSON.parse(data)).then((resp) => {
+          if (resp.code === 0) {
+            downloadXMindFile(resp.data);
+          } else {
+            message.error(`导出错误：${resp.message}`);
+          }
         });
-        reader.readAsText(data, 'utf-8');
       });
   };
 
