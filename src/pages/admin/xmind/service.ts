@@ -3,6 +3,7 @@ import type { API } from '@/services/typings';
 import type {
   CreateXMindBody,
   DeleteXMindBody,
+  DragXMindBody,
   RenameXMindBody,
   UpdateXMindBody,
 } from '@/pages/admin/xmind/xmind-typings';
@@ -56,6 +57,17 @@ export async function updateXMind(info: UpdateXMindBody, options?: { [key: strin
  */
 export async function exportXMind(info: any, options?: { [key: string]: any }) {
   return request<API.Response<any>>(`/blog/v1/admin/xmind/export-xmind`, {
+    method: 'POST',
+    data: info,
+    ...(options || {}),
+  });
+}
+
+/**
+ * 拖动排序XMind POST /blog/v1/admin/xmind/drag
+ */
+export async function dragXMind(info: DragXMindBody, options?: { [key: string]: any }) {
+  return request<API.Response<any>>(`/blog/v1/admin/xmind/drag`, {
     method: 'POST',
     data: info,
     ...(options || {}),

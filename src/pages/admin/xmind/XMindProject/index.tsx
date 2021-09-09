@@ -17,9 +17,10 @@ import {
 } from '@ant-design/icons';
 import CreateXMindModalForm from '@/pages/admin/xmind/XMindProject/components/CreateXMindModalForm';
 import RenameXMindModalForm from '@/pages/admin/xmind/XMindProject/components/RenameXMindModalForm';
-import { deleteXMind } from '@/pages/admin/xmind/service';
+import { deleteXMind, dragXMind } from '@/pages/admin/xmind/service';
 import { traverseAllChildrenId } from '@/utils/react-tree-util';
 import { history } from 'umi';
+import type { DragXMindBody } from '@/pages/admin/xmind/xmind-typings';
 
 const { DirectoryTree } = Tree;
 const { Title, Text } = Typography;
@@ -67,6 +68,19 @@ const XMindProject: React.FC = () => {
    */
   const onRenameBottonClick = (id: number) => {
     setShowRenameModal({ visible: true, xMindId: id });
+  };
+
+  /**
+   * 拖动节点
+   */
+  const onDragXMindProject = (body: DragXMindBody) => {
+    dragXMind(body).then((resp) => {
+      if (resp.code === 0) {
+        fetchXMindTree();
+      } else {
+        message.error(`拖动导图失败：${resp.message}`);
+      }
+    });
   };
 
   /**
@@ -200,9 +214,27 @@ const XMindProject: React.FC = () => {
         <DirectoryTree
           className={styles.xMindTree}
           multiple={false}
+          draggable={true}
           treeData={xmindTree}
           titleRender={(node: DataNode) => {
             return node.isLeaf ? renderLeafTitle(node) : renderDirTitle(node);
+          }}
+          allowDrop={({ dropNode, dropPosition }) => {
+            // 不允许到叶子节点内部
+            return !(dropNode.isLeaf && dropPosition === 0);
+          }}
+          onDrop={({ node, dragNode }) => {
+            // 根据dragOver\dragOverGapTop\dragOverGapBottom 判断
+            // 拖入文件夹内部，则默认放在第一个位置
+            onDragXMindProject({
+              dragOver: node.dragOver,
+              dragOverGapTop: node.dragOverGapTop,
+              dragOverGapBottom: node.dragOverGapBottom,
+              // @ts-ignore
+              targetNode: { id: node.id, parentId: node.parentId },
+              // @ts-ignore
+              dragNode: { id: dragNode.id, parentId: dragNode.parentId },
+            });
           }}
         />
       </ProCard>
