@@ -97,7 +97,12 @@ const WikiDocumentDetail: React.FC = () => {
       }
       content={
         <div className={styles.wikiDocumentHtmlContent}>
-          <EditorMarkdownHtml content={content} tocm={true} tocContainer={'#toc-container'} />
+          <EditorMarkdownHtml
+            name={'wiki'}
+            content={content}
+            tocm={true}
+            tocContainer={'#toc-container'}
+          />
         </div>
       }
       rightSider={

@@ -5,6 +5,7 @@ import { readConfig } from '@/services/config-service';
 import { message } from 'antd';
 import NavigationMenu from '@/pages/Navigation/components/NavigationMenu';
 import NavigationSite from '@/pages/Navigation/components/NavigationSite';
+import { ConfigKey } from '@/pages/common-constants';
 
 /**
  * 导航站页面
@@ -14,7 +15,7 @@ const Navigation: React.FC = () => {
   const [navigation, setNavigation] = useState<NavigationNode[]>([]);
 
   useEffect(() => {
-    readConfig('navigation').then((resp) => {
+    readConfig(ConfigKey.Navigation).then((resp) => {
       if (resp.code === 0 && resp.data?.content !== undefined) {
         setNavigation(resp.data.content as NavigationNode[]);
       } else {

@@ -1,0 +1,68 @@
+@import './../../custom-define';
+
+.container {
+  margin-top: 24px;
+
+  :global {
+    .ant-pro-card {
+      background: @sider-bar-menu-background !important;
+      border-radius: 5px;
+    }
+
+    .ant-pro-card-body {
+      padding: 0;
+    }
+
+    .ant-pro-card-header {
+      padding: 16px;
+    }
+
+    .editormd-preview-theme-dark {
+      padding: 0 20px 20px;
+      background: transparent;
+    }
+  }
+}
+
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scanContactMe {
+  margin-top: 16px;
+}
+
+.contactMeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24px;
+}
+
+.contactMeMoreContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px;
+  border-top: 1px dashed @second-background;
+}
+
+.timeLineItem {
+  color: #979898;
+  list-style: disc;
+}
+
+.thanksItem {
+  color: #979898;
+  list-style: disc;
+
+  :global {
+    a,
+    a:visited {
+      color: #136ade;
+    }
+  }
+}

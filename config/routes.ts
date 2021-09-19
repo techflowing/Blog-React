@@ -55,7 +55,7 @@
   {
     path: '/about',
     name: '关于',
-    component: '@/components/layout/ContentFooterLayout',
+    component: './About',
   },
   {
     path: '/admin',
@@ -100,6 +100,11 @@
         menuRender: false,
         headerRender: false,
         footerRender: false,
+      },
+      {
+        path: '/admin/about',
+        name: '关于页数据管理',
+        component: './admin/About',
       },
     ],
   },

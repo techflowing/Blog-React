@@ -109,6 +109,16 @@ export const insertScript = (src: string, async: boolean = false) => {
  * @param srcArray 数据
  */
 export const insertScriptWithNoRepeat = (srcArray: string[], serial: boolean = false) => {
+  /**
+   * 序列执行
+   */
+  const sequencePromise = async (array: Promise<any>[]) => {
+    for (const p of array) {
+      // eslint-disable-next-line no-await-in-loop
+      await p;
+    }
+  };
+
   return new Promise((resolve) => {
     const current = document.getElementsByTagName('script');
     const set = new Set<string>();
@@ -132,7 +142,7 @@ export const insertScriptWithNoRepeat = (srcArray: string[], serial: boolean = f
     });
     if (serial) {
       // @ts-ignore
-      final.reduce((prev, next) => prev.then(next), resolve(true));
+      sequencePromise(final).then(() => resolve(true));
     } else {
       Promise.all(final).then(() => {
         resolve(true);

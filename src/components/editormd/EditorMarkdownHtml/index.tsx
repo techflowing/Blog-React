@@ -4,6 +4,7 @@ import '../../../../public/assets/editor.md/css/editormd.css';
 import './index.css';
 
 interface EditorMarkdownHtmlProps {
+  name: string;
   content: string;
   tocm?: boolean;
   tocContainer?: string;
@@ -11,10 +12,17 @@ interface EditorMarkdownHtmlProps {
 
 class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
   /**
+   * 构建容器ID
+   */
+  buildViewId() {
+    return `editormd-html-view-${this.props.name}`;
+  }
+
+  /**
    * 清除之前渲染的 Dom
    */
   clearRenderDom() {
-    const htmlView = document.getElementById('editormd-html-view');
+    const htmlView = document.getElementById(this.buildViewId());
     if (htmlView) {
       // 清除
       htmlView.innerHTML = '';
@@ -29,8 +37,16 @@ class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
    */
   markdownToHTML() {
     this.clearRenderDom();
+    // 同以页面多组件时，因为动态加载JS的问题，editormd 可能获取不到，此处循环等待，兼容方案
     // @ts-ignore
-    editormd.markdownToHTML('editormd-html-view', {
+    if (window.editormd === undefined) {
+      setTimeout(() => {
+        this.markdownToHTML();
+      }, 100);
+      return;
+    }
+    // @ts-ignore
+    window.editormd?.markdownToHTML(this.buildViewId(), {
       markdown: this.props.content,
       htmlDecode: 'style,script,iframe',
       tocm: this.props.tocm,
@@ -67,7 +83,7 @@ class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
 
   render() {
     return (
-      <div id="editormd-html-view" className={`editormd-preview-theme-dark`}>
+      <div id={this.buildViewId()} className={`editormd-preview-theme-dark`}>
         <textarea style={{ display: 'none' }} />
       </div>
     );
