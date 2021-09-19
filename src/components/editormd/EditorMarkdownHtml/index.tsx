@@ -54,7 +54,7 @@ class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
       emoji: false,
       taskList: true,
       tex: true,
-      flowChart: true,
+      flowChart: false,
       sequenceDiagram: true,
     });
   }
