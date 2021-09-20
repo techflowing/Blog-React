@@ -11,3 +11,13 @@ export async function getVisitorStatistic(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/**
+ * 上报页面访问统计
+ */
+export async function postVisitorStatistic(options?: { [key: string]: any }) {
+  return request<API.Response<VisitorStatisticModel[]>>(`/blog/v1/statistic/visitor`, {
+    method: 'POST',
+    ...(options || {}),
+  });
+}

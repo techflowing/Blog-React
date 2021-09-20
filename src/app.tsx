@@ -7,8 +7,17 @@ import type { UserInfo } from '@/services/typings';
 import { getAuthorizeToken, getBaseUrl, getUserFromLocalStorage } from '@/utils/common-util';
 import Logo from '@/components/Logo';
 import defaultSettings from '../config/defaultSettings';
+import { onRouteChangeStatistic } from '@/utils/visitor-statistic-util';
 
 const loginPath = '/user/login';
+
+/**
+ * 路由跳转，上报埋点
+ */
+// @ts-ignore
+export function onRouteChange({ location }) {
+  onRouteChangeStatistic(location);
+}
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
