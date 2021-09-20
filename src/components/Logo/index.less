@@ -12,6 +12,7 @@
 }
 
 .outerCircle {
+  position: absolute;
   display: inline-block;
   width: @out-size;
   height: @out-size;
@@ -20,6 +21,17 @@
   border-radius: 50%;
   cursor: pointer;
   animation: rotate 1.5s linear infinite;
+
+  .innerCircle {
+    position: absolute;
+    top: @space;
+    left: @space;
+    z-index: 9;
+    width: @inner-size;
+    height: @inner-size;
+    background: black;
+    border-radius: 50%;
+  }
 
   span {
     position: absolute;
@@ -44,17 +56,6 @@
   span:nth-child(4) {
     filter: blur(150px);
   }
-}
-
-.innerCircle {
-  position: absolute;
-  top: @space;
-  left: @space;
-  z-index: 9;
-  width: @inner-size;
-  height: @inner-size;
-  background: black;
-  border-radius: 50%;
 }
 
 @keyframes rotate {

@@ -45,6 +45,7 @@
   {
     path: '/thought',
     name: '随想录',
+    hideInMenu: true,
     component: '@/components/layout/ContentFooterLayout',
   },
   {
