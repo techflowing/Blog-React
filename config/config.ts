@@ -48,7 +48,7 @@ export default defineConfig({
     type: 'none',
   },
   // mfsu: {},
-  // webpack5: {},
+  webpack5: {},
   exportStatic: {},
   chainWebpack: (memo, { env, webpack, createCSSRule }) => {
     memo.plugin('provide-plugin').use(webpack.ProvidePlugin, [
