@@ -67,7 +67,12 @@
     routes: [
       {
         path: '/admin',
-        redirect: '/admin/navigation',
+        redirect: '/admin/user-profile',
+      },
+      {
+        path: '/admin/user-profile',
+        name: '用户信息管理',
+        component: './admin/UserProfile',
       },
       {
         path: '/admin/navigation',
