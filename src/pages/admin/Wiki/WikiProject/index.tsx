@@ -126,9 +126,7 @@ const WikiProjectAdmin: React.FC = () => {
           });
         }}
         rowKey="name"
-        pagination={{
-          pageSize: 20,
-        }}
+        pagination={false}
         search={false}
         dateFormatter="string"
         toolBarRender={() => [

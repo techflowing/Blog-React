@@ -1,5 +1,6 @@
 import customConfig from './../../config/customConfig';
 import type { UserInfo } from '@/services/typings';
+import { PresetColorTypes } from 'antd/es/_util/colors';
 
 const storage_key_user = 'site_user_info';
 
@@ -170,4 +171,11 @@ export const dataURLtoBlob = (dataurl: any) => {
   return new Blob([u8arr], {
     type: mime,
   });
+};
+
+/**
+ * 获取预置的随机颜色
+ */
+export const getRandomPresetColor = (): string => {
+  return PresetColorTypes[Math.floor(Math.random() * (PresetColorTypes.length - 1))];
 };

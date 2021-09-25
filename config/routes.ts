@@ -45,8 +45,7 @@
   {
     path: '/thought',
     name: '随想录',
-    hideInMenu: true,
-    component: '@/components/layout/ContentFooterLayout',
+    component: './Thought',
   },
   {
     path: '/guestbook',
@@ -106,6 +105,11 @@
         menuRender: false,
         headerRender: false,
         footerRender: false,
+      },
+      {
+        path: '/admin/thought',
+        name: '随想录数据管理',
+        component: './admin/Thought',
       },
       {
         path: '/admin/about',
