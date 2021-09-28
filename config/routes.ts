@@ -20,6 +20,11 @@
     component: './Navigation',
   },
   {
+    path: '/thought',
+    name: '随想录',
+    component: './Thought',
+  },
+  {
     path: '/wiki',
     name: '知识库',
     routes: [
@@ -41,11 +46,6 @@
     path: '/xmind',
     name: '思维导图',
     component: './XMind',
-  },
-  {
-    path: '/thought',
-    name: '随想录',
-    component: './Thought',
   },
   {
     path: '/guestbook',
