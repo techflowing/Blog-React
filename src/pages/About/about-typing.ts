@@ -16,4 +16,7 @@ export type AboutConfig = {
   }[];
   email: string;
   github: string;
+  avatar: string;
+  username: string;
+  slogan: string;
 };

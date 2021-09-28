@@ -21,3 +21,13 @@ export async function getThoughtTags(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/**
+ * 获取tag POST /blog/v1/thought/overview
+ */
+export async function getThoughtOverview(options?: { [key: string]: any }) {
+  return request<API.Response<{ tags: number; count: number }>>(`/blog/v1/thought/overview`, {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
