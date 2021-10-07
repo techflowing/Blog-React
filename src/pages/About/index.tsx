@@ -19,6 +19,7 @@ const About: React.FC = () => {
   const [xmind, setXMind] = useState<VisitorStatisticModel>();
   const [guestBook, setGuestBook] = useState<VisitorStatisticModel>();
   const [about, setAbout] = useState<VisitorStatisticModel>();
+  const [thought, setThought] = useState<VisitorStatisticModel>();
 
   /**
    * 获取统计项
@@ -53,6 +54,7 @@ const About: React.FC = () => {
         setXMind(getVisitorStatisticMode(date, StatisticLocation.XMind));
         setGuestBook(getVisitorStatisticMode(date, StatisticLocation.GuestBook));
         setAbout(getVisitorStatisticMode(date, StatisticLocation.About));
+        setThought(getVisitorStatisticMode(date, StatisticLocation.Thought));
       } else {
         message.error(`获取访问统计数据失败：${resp.message}`);
       }
@@ -112,6 +114,7 @@ const About: React.FC = () => {
           </ProCard>
           <ProCard title={'访问统计'}>
             {navigate && <VisitorStatistic title={'导航站'} pv={navigate.pv} uv={navigate.uv} />}
+            {thought && <VisitorStatistic title={'随想录'} pv={thought.pv} uv={thought.uv} />}
             {wiki && <VisitorStatistic title={'知识库'} pv={wiki.pv} uv={wiki.uv} />}
             {xmind && <VisitorStatistic title={'思维导图'} pv={xmind.pv} uv={xmind.uv} />}
             {guestBook && <VisitorStatistic title={'留言板'} pv={guestBook.pv} uv={guestBook.uv} />}

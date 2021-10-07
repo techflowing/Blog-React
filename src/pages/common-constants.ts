@@ -16,4 +16,5 @@ export enum StatisticLocation {
   XMind = 'xmind',
   GuestBook = 'guest_book',
   About = 'about',
+  Thought = 'thought',
 }

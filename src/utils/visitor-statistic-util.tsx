@@ -27,6 +27,9 @@ export const onRouteChangeStatistic = (location: Location) => {
     case '/about':
       sendVisitorStatistic(StatisticScene.MainPage, StatisticLocation.About);
       break;
+    case '/thought':
+      sendVisitorStatistic(StatisticScene.MainPage, StatisticLocation.Thought);
+      break;
     default:
   }
 };
