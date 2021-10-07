@@ -10,3 +10,11 @@ export async function login(body: LoginParams, options?: { [key: string]: any })
     ...(options || {}),
   });
 }
+
+/** 刷新Token GET /blog/v1/admin/user/refresh-token */
+export async function refreshToken(token: string, options?: { [key: string]: any }) {
+  return request<API.Response<string>>('/blog/v1/admin/user/refresh-token', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}

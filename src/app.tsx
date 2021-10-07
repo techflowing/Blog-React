@@ -82,9 +82,7 @@ export async function getInitialState(): Promise<{
  */
 export const request: RequestConfig = {
   prefix: getBaseUrl(),
-  headers: {
-    token: getAuthorizeToken(),
-  },
+
   errorHandler: (error: any) => {
     const { response, data } = error;
 
@@ -115,6 +113,15 @@ export const request: RequestConfig = {
       };
     },
   },
+  requestInterceptors: [
+    (url: string, options) => {
+      const tokenHeader = { ...options.headers, token: getAuthorizeToken() };
+      return {
+        url,
+        options: { ...options, headers: tokenHeader },
+      };
+    },
+  ],
 };
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
