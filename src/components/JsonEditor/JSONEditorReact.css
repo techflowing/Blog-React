@@ -129,6 +129,11 @@ div.ace-jsoneditor .ace_marker-layer .ace_active-line {
     right repeat-y;
 }
 
+.ace-jsoneditor.ace_editor{
+  background: #535353;
+}
+
 div.jsoneditor-statusbar {
   background-color: #3a3a3a;
+  border-top: none;
 }
