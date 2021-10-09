@@ -14,11 +14,16 @@ const WikiDocumentDetail: React.FC = () => {
   const [content, setContent] = useState<string>('');
   const projectHashKey = useRef<string>();
 
+  const scrollContentToTop = () => {
+    document.getElementById('wikiDocumentHtmlContent')?.scrollIntoView();
+  };
+
   const getDocumentContent = (key: string) => {
     getWikiDocumentContent(key).then((resp) => {
       if (resp.code === 0) {
         // consoleLog(resp.data);
         setContent(resp.data);
+        scrollContentToTop();
       }
     });
   };
@@ -96,7 +101,7 @@ const WikiDocumentDetail: React.FC = () => {
         />
       }
       content={
-        <div className={styles.wikiDocumentHtmlContent}>
+        <div className={styles.wikiDocumentHtmlContent} id={'wikiDocumentHtmlContent'}>
           <EditorMarkdownHtml
             name={'wiki'}
             content={content}
