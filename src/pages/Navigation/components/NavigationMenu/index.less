@@ -3,7 +3,7 @@
 .navigationMenu {
   height: 100%;
   padding-top: 8px;
-  overflow: auto;
+  overflow: hidden;
   background: @sider-bar-menu-background !important;
 
   :global {
@@ -17,4 +17,8 @@
       height: @sider-bar-menu-item-height !important;
     }
   }
+}
+
+.navigationMenu:hover {
+  overflow: auto;
 }

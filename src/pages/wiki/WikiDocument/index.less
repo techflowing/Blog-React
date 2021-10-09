@@ -3,7 +3,7 @@
 .wikiCatalogue {
   height: 100%;
   padding-top: 8px;
-  overflow: auto;
+  overflow: hidden;
   background: @sider-bar-menu-background !important;
 
   :global {
@@ -31,6 +31,10 @@
       font-size: 14px;
     }
   }
+}
+
+.wikiCatalogue:hover {
+  overflow: auto;
 }
 
 .wikiDocumentHtmlContent {

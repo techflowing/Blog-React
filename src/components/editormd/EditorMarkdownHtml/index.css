@@ -27,6 +27,14 @@ h6 {
   color: #979898;
 }
 
+.markdown-body ul {
+  list-style: disc;
+}
+
+.markdown-body ol {
+  list-style: decimal;
+}
+
 .editormd-preview-container hr,
 .editormd-html-preview hr {
   border-top: 1px solid #333;
