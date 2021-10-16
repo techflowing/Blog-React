@@ -5,6 +5,7 @@ export type SiderContentFooterLayoutType = {
   sider: React.ReactNode;
   content: React.ReactNode;
   hideFooter?: boolean;
+  content100?: boolean;
 };
 
 const SiderContentFooterLayout: React.FC<SiderContentFooterLayoutType> = (props) => {
@@ -37,7 +38,9 @@ const SiderContentFooterLayout: React.FC<SiderContentFooterLayoutType> = (props)
           scrollBehavior: 'smooth',
         }}
       >
-        <div style={{ flex: '1 1 auto' }}>{props.content}</div>
+        <div style={{ flex: '1 1 auto', height: props.content100 ? '100%' : 'auto' }}>
+          {props.content}
+        </div>
         {!props.hideFooter && (
           <div style={{ flex: '0 0 auto' }}>
             <Footer />

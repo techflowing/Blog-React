@@ -53,6 +53,7 @@ const WikiDocumentAdmin: React.FC = () => {
         />
       }
       hideFooter={true}
+      content100={true}
     />
   );
 };
