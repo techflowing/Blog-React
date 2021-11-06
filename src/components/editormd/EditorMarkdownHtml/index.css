@@ -56,6 +56,12 @@ h6 {
   border: 0 solid #ddd;
 }
 
+.editormd-html-preview blockquote {
+  padding: .5em;
+  background: #2a2a2a;
+  border-left: 4px solid #444;
+}
+
 .editormd-container-mask {
   background-color: #2c2e2e;
 }
