@@ -17,16 +17,17 @@ class KityMinderEditor extends React.PureComponent<KityMinderEditorProps> {
   initKityminderEditor() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const ref = this;
-    angular
-      .module('kityminderApp', ['kityminderEditor'])
-      .controller('MainController', function ($scope) {
+    angular.module('kityminderApp', ['kityminderEditor']).controller('MainController', [
+      '$scope',
+      function ($scope) {
         $scope.initEditor = function (editor, minder) {
           window.editor = editor;
           window.minder = minder;
           ref.loadFinish = true;
           ref.props.onEnvReady();
         };
-      });
+      },
+    ]);
     // 偶尔会加载失败，刷新会成功，临时处理下，还不知道原因
     setTimeout(function () {
       if (!ref.loadFinish) {
