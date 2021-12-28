@@ -139,37 +139,32 @@
 
                     loading(true);
 
-                    var submitHandler = function() {
+                  var submitHandler = function() {
+                    var form = dialog.find("[enctype=\"multipart/form-data\"]")[0];
+                    var formData = new FormData(form);
 
-                        var uploadIframe = document.getElementById(iframeName);
+                    $.ajax({
+                      type: 'post',
+                      url: settings.fileUploadURL + (settings.fileUploadURL.indexOf("?") >= 0 ? "&" : "?") + "guid=" + guid,
+                      data: formData,
+                      cache: false,
+                      processData: false,
+                      contentType: false,
+                      success: function (data, textStatus, jqXHR) {
+                        if (data.success === 1) { // 上传成功
+                          dialog.find("[data-url]").val(data.url); // 设置图片地址
+                        } else {
+                          alert(data.message); // 上传失败，弹出警告信息
+                        }
+                      },
+                      error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                      }
+                    });
 
-                        uploadIframe.onload = function() {
-
-                            loading(false);
-
-                            var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
-                            var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
-
-                            json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
-
-                            if(!settings.crossDomainUpload)
-                            {
-                                if (json.success === 1)
-                                {
-                                    dialog.find("[data-url]").val(json.url);
-
-                                    json.alt && dialog.find("[data-alt]").val(json.alt);
-                                    json.icon && dialog.find("[data-icon]").val(json.icon);
-                                }
-                                else
-                                {
-                                    alert(json.message);
-                                }
-                            }
-
-                            return false;
-                        };
-                    };
+                    loading(false); // 关闭加载效果
+                    return false;
+                  };
 
                     dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");
                 });

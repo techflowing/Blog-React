@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { consoleLog, insertScriptWithNoRepeat } from '@/utils/common-util';
+import { consoleLog, getBaseUrl, insertScriptWithNoRepeat } from '@/utils/common-util';
 import '../../../../public/assets/editor.md/css/editormd.css';
 import '../EditorMarkdownHtml/index.css';
 import './index.css';
@@ -28,9 +28,9 @@ class EditorMarkdownEditor extends React.Component<EditorMarkdownEditorProps> {
       placeholder: '本编辑器支持Markdown编辑，左边编写，右边预览',
       imageUpload: true,
       imageFormats: ['jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG'],
-      imageUploadURL: '/admin/wiki/upload/img',
+      imageUploadURL: `${getBaseUrl()}/blog/v1/editormd/upload/image`,
       fileUpload: true,
-      fileUploadURL: '/admin/wiki/upload/file',
+      fileUploadURL: `${getBaseUrl()}/blog/v1/editormd/upload/file`,
       htmlDecode: true,
       emoji: false,
       tocStartLevel: 1,
