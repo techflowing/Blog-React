@@ -1,5 +1,6 @@
 import React from 'react';
-import { insertScriptWithNoRepeat } from '@/utils/common-util';
+// @ts-ignore
+import Valine from 'valine';
 import './index.css';
 
 interface ValineCommentProps {
@@ -16,17 +17,15 @@ interface ValineCommentProps {
  */
 class ValineComment extends React.PureComponent<ValineCommentProps> {
   componentDidMount() {
-    insertScriptWithNoRepeat(['https://unpkg.com/valine/dist/Valine.min.js']).then(() => {
-      // @ts-ignore
-      // eslint-disable-next-line no-new
-      new Valine({
-        el: '#vcomments',
-        appId: this.props.appId,
-        appKey: this.props.appKey,
-        placeholder: this.props.placeholder,
-        avatar: this.props.avatar,
-        pageSize: this.props.pageSize,
-      });
+    // @ts-ignore
+    // eslint-disable-next-line no-new
+    new Valine({
+      el: '#vcomments',
+      appId: this.props.appId,
+      appKey: this.props.appKey,
+      placeholder: this.props.placeholder,
+      avatar: this.props.avatar,
+      pageSize: this.props.pageSize,
     });
   }
 

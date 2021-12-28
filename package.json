@@ -69,7 +69,8 @@
     "react-helmet-async": "^1.0.4",
     "ts-md5": "^1.2.9",
     "umi": "^3.5.0",
-    "umi-serve": "^1.9.10"
+    "umi-serve": "^1.9.10",
+    "valine": "^1.4.16"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.0.2",
