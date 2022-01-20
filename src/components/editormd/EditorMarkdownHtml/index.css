@@ -100,3 +100,7 @@ h6 {
 .editormd-toc {
   border-left: 1px solid #333;
 }
+
+.editormd-markdown-toc ul {
+  padding-inline-start: 16px;
+}
