@@ -4421,8 +4421,7 @@ hr.editormd-page-break {
 }
 .editormd-preview-theme-dark pre {
   color: #999;
-  background-color: #111;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #2B2B2B;
   /* plain text */
 }
 .editormd-preview-theme-dark pre .pln {

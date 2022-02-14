@@ -1,6 +1,8 @@
 import React from 'react';
+import hljs from 'highlight.js';
 import { consoleLog, insertScriptWithNoRepeat } from '@/utils/common-util';
 import '../../../../public/assets/editor.md/css/editormd.css';
+import 'highlight.js/styles/androidstudio.css';
 import './index.css';
 
 interface EditorMarkdownHtmlProps {
@@ -59,6 +61,20 @@ class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
     });
   }
 
+  /**
+   * 代码高亮
+   */
+  highlightCodeBlock() {
+    document.querySelectorAll('pre code').forEach((block) => {
+      try {
+        // @ts-ignore
+        hljs.highlightBlock(block);
+      } catch (e) {
+        consoleLog(e);
+      }
+    });
+  }
+
   componentDidMount() {
     const js = [
       '/assets/common/js/jquery.js',
@@ -74,11 +90,13 @@ class EditorMarkdownHtml extends React.PureComponent<EditorMarkdownHtmlProps> {
     insertScriptWithNoRepeat(js).then(() => {
       consoleLog('加载依赖JS完成');
       this.markdownToHTML();
+      this.highlightCodeBlock();
     });
   }
 
   componentDidUpdate() {
     this.markdownToHTML();
+    this.highlightCodeBlock();
   }
 
   render() {
